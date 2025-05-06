@@ -10,6 +10,7 @@ import VideoAnalysis from "./pages/VideoAnalysis";
 import WebcamAnalysis from "./pages/WebcamAnalysis";
 import Report from "./pages/Report";
 import Resources from "./pages/Resources";
+import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/webcam-analysis" element={<WebcamAnalysis />} />
           <Route path="/report" element={<Report />} />
           <Route path="/resources" element={<Resources />} />
+          <Route path="/settings" element={<Settings />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
