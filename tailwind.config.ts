@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -52,6 +53,20 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+				// Custom colors for our app
+				deepfake: {
+					50: '#f0f4ff',
+					100: '#dbe4ff',
+					200: '#bccaff',
+					300: '#8fa5ff',
+					400: '#6377fb',
+					500: '#4b55f2',
+					600: '#3c3ae4',
+					700: '#342ec7',
+					800: '#2c29a0',
+					900: '#292980',
+					950: '#1a1847',
+				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
@@ -84,11 +99,26 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'pulse-slow': {
+					'0%, 100%': { opacity: '1' },
+					'50%': { opacity: '0.8' },
+				},
+				'scan': {
+					'0%': { backgroundPosition: '0% 0%' },
+					'100%': { backgroundPosition: '0% 100%' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'pulse-slow': 'pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+				'scan': 'scan 2s linear infinite',
+			},
+			backgroundImage: {
+				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+				'grid-pattern': 'linear-gradient(to right, #8fa5ff20 1px, transparent 1px), linear-gradient(to bottom, #8fa5ff20 1px, transparent 1px)',
+				'scanning-line': 'linear-gradient(to bottom, transparent, #4b55f240 50%, transparent)'
 			}
 		}
 	},
