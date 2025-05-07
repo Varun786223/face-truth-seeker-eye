@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { AlertCircle, CheckCircle, Save } from "lucide-react";
@@ -17,7 +17,7 @@ interface Feature {
 
 export function FeatureSelectionPanel() {
   // Get stored features from AIService
-  const storedFeatures = aiService.getEnabledFeatures();
+  const storedFeatures = aiService.getEnabledFeatures?.() || {};
   
   // Initial features state with enabled status from storage
   const [features, setFeatures] = useState<Feature[]>([
@@ -204,14 +204,16 @@ export function FeatureSelectionPanel() {
   
   // Save features configuration
   const saveFeatures = () => {
-    const enabledFeatures: any = {};
+    const enabledFeatures: Record<string, boolean> = {};
     
     features.forEach(feature => {
       enabledFeatures[feature.id] = feature.enabled;
     });
     
-    aiService.saveEnabledFeatures(enabledFeatures);
-    toast.success("Feature configuration saved");
+    if (aiService.saveEnabledFeatures) {
+      aiService.saveEnabledFeatures(enabledFeatures);
+      toast.success("Feature configuration saved");
+    }
   };
   
   return (

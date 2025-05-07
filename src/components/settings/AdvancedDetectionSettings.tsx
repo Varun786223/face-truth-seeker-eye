@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { Info } from "lucide-react";
 
 export function AdvancedDetectionSettings() {
@@ -78,16 +78,14 @@ export function AdvancedDetectionSettings() {
     <div className="flex items-center justify-between py-2">
       <div className="flex items-center gap-2">
         <Label htmlFor={id} className="cursor-pointer">{label}</Label>
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Info className="h-4 w-4 text-muted-foreground cursor-help" />
-            </TooltipTrigger>
-            <TooltipContent side="right" className="max-w-[250px]">
-              <p className="text-xs">{description}</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Info className="h-4 w-4 text-muted-foreground cursor-help" />
+          </TooltipTrigger>
+          <TooltipContent side="right" className="max-w-[250px]">
+            <p className="text-xs">{description}</p>
+          </TooltipContent>
+        </Tooltip>
       </div>
       <Switch
         id={id}
