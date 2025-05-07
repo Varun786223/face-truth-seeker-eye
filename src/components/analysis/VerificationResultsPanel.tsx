@@ -1,4 +1,3 @@
-
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { 
@@ -7,7 +6,7 @@ import {
   TabsList, 
   TabsTrigger 
 } from "@/components/ui/tabs";
-import { search, link, flag, network } from "lucide-react";
+import { Search, Link, Flag, Network } from "lucide-react";
 
 interface VerificationResult {
   reverseSearchMatches?: Array<{
@@ -65,7 +64,7 @@ export function VerificationResultsPanel({ verificationData }: VerificationResul
             disabled={!hasReverseSearch}
             className="flex items-center gap-2"
           >
-            <search className="h-4 w-4" />
+            <Search className="h-4 w-4" />
             <span className="hidden sm:inline">Search</span>
           </TabsTrigger>
           <TabsTrigger 
@@ -73,7 +72,7 @@ export function VerificationResultsPanel({ verificationData }: VerificationResul
             disabled={!hasBlockchainData}
             className="flex items-center gap-2"
           >
-            <link className="h-4 w-4" />
+            <Link className="h-4 w-4" />
             <span className="hidden sm:inline">Blockchain</span>
           </TabsTrigger>
           <TabsTrigger 
@@ -81,7 +80,7 @@ export function VerificationResultsPanel({ verificationData }: VerificationResul
             disabled={!hasUserReports}
             className="flex items-center gap-2"
           >
-            <flag className="h-4 w-4" />
+            <Flag className="h-4 w-4" />
             <span className="hidden sm:inline">Reports</span>
           </TabsTrigger>
           <TabsTrigger 
@@ -89,7 +88,7 @@ export function VerificationResultsPanel({ verificationData }: VerificationResul
             disabled={!hasNetworkAnalysis}
             className="flex items-center gap-2"
           >
-            <network className="h-4 w-4" />
+            <Network className="h-4 w-4" />
             <span className="hidden sm:inline">Network</span>
           </TabsTrigger>
         </TabsList>
