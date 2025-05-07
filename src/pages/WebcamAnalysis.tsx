@@ -8,7 +8,10 @@ import { CheckCircle, AlertTriangle, Camera, Info } from "lucide-react";
 import { toast } from "sonner";
 import aiService from "@/services/AIService";
 import { VerificationResultsPanel } from "@/components/analysis/VerificationResultsPanel";
+import { AdvancedResultsPanel } from "@/components/analysis/AdvancedResultsPanel";
+import { PDFReportGenerator } from "@/components/analysis/PDFReportGenerator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import pdfReportService from "@/services/PDFReportService";
 
 const WebcamAnalysis = () => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -138,6 +141,22 @@ const WebcamAnalysis = () => {
     return <CheckCircle className="h-5 w-5" />;
   };
   
+  const handleGeneratePDFReport = (options: any) => {
+    if (!results) {
+      toast.error("No analysis results to generate report");
+      return;
+    }
+    
+    pdfReportService.generateReport(results, "webcam", options)
+      .then(() => {
+        toast.success("PDF report generated successfully");
+      })
+      .catch(error => {
+        console.error("Error generating PDF report:", error);
+        toast.error("Failed to generate PDF report");
+      });
+  };
+  
   return (
     <>
       <Navbar />
@@ -239,6 +258,8 @@ const WebcamAnalysis = () => {
                   <TabsList className="mb-4">
                     <TabsTrigger value="detection">Detection Results</TabsTrigger>
                     <TabsTrigger value="verification">Verification</TabsTrigger>
+                    <TabsTrigger value="advanced">Advanced</TabsTrigger>
+                    <TabsTrigger value="report">PDF Report</TabsTrigger>
                   </TabsList>
                   
                   <TabsContent value="detection">
@@ -284,6 +305,18 @@ const WebcamAnalysis = () => {
                   
                   <TabsContent value="verification">
                     <VerificationResultsPanel verificationData={results.verificationData} />
+                  </TabsContent>
+                  
+                  <TabsContent value="advanced">
+                    <AdvancedResultsPanel detectionFeatures={results.detectionFeatures} />
+                  </TabsContent>
+                  
+                  <TabsContent value="report">
+                    <PDFReportGenerator 
+                      analysisResults={results}
+                      mediaType="webcam"
+                      onGenerate={handleGeneratePDFReport}
+                    />
                   </TabsContent>
                 </Tabs>
               </CardContent>

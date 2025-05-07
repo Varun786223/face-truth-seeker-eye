@@ -10,6 +10,9 @@ import { Info, AlertTriangle, CheckCircle } from "lucide-react";
 import { toast } from "sonner";
 import aiService from "@/services/AIService";
 import { VerificationResultsPanel } from "@/components/analysis/VerificationResultsPanel";
+import { AdvancedResultsPanel } from "@/components/analysis/AdvancedResultsPanel";
+import { PDFReportGenerator } from "@/components/analysis/PDFReportGenerator";
+import pdfReportService from "@/services/PDFReportService";
 
 const ImageAnalysis = () => {
   const [files, setFiles] = useState<File[]>([]);
@@ -96,6 +99,22 @@ const ImageAnalysis = () => {
     }
   };
 
+  const handleGeneratePDFReport = (options: any) => {
+    if (!results) {
+      toast.error("No analysis results to generate report");
+      return;
+    }
+    
+    pdfReportService.generateReport(results, "image", options)
+      .then(() => {
+        toast.success("PDF report generated successfully");
+      })
+      .catch(error => {
+        console.error("Error generating PDF report:", error);
+        toast.error("Failed to generate PDF report");
+      });
+  };
+
   return (
     <>
       <Navbar />
@@ -141,6 +160,8 @@ const ImageAnalysis = () => {
                     <TabsTrigger value="details">Detailed Analysis</TabsTrigger>
                     <TabsTrigger value="visualization">Visualization</TabsTrigger>
                     <TabsTrigger value="verification">Verification</TabsTrigger>
+                    <TabsTrigger value="advanced">Advanced</TabsTrigger>
+                    <TabsTrigger value="report">PDF Report</TabsTrigger>
                   </TabsList>
                   
                   <TabsContent value="summary">
@@ -267,6 +288,18 @@ const ImageAnalysis = () => {
                   
                   <TabsContent value="verification">
                     <VerificationResultsPanel verificationData={results.verificationData} />
+                  </TabsContent>
+                  
+                  <TabsContent value="advanced">
+                    <AdvancedResultsPanel detectionFeatures={results.detectionFeatures} />
+                  </TabsContent>
+                  
+                  <TabsContent value="report">
+                    <PDFReportGenerator 
+                      analysisResults={results}
+                      mediaType="image"
+                      onGenerate={handleGeneratePDFReport}
+                    />
                   </TabsContent>
                 </Tabs>
               </CardContent>

@@ -11,6 +11,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import aiService from "@/services/AIService";
 import { VerificationResultsPanel } from "@/components/analysis/VerificationResultsPanel";
+import { AdvancedResultsPanel } from "@/components/analysis/AdvancedResultsPanel";
+import { PDFReportGenerator } from "@/components/analysis/PDFReportGenerator";
+import pdfReportService from "@/services/PDFReportService";
 
 const VideoAnalysis = () => {
   const [files, setFiles] = useState<File[]>([]);
@@ -130,6 +133,22 @@ const VideoAnalysis = () => {
       );
     }
   };
+  
+  const handleGeneratePDFReport = (options: any) => {
+    if (!results) {
+      toast.error("No analysis results to generate report");
+      return;
+    }
+    
+    pdfReportService.generateReport(results, "video", options)
+      .then(() => {
+        toast.success("PDF report generated successfully");
+      })
+      .catch(error => {
+        console.error("Error generating PDF report:", error);
+        toast.error("Failed to generate PDF report");
+      });
+  };
 
   return (
     <>
@@ -189,6 +208,8 @@ const VideoAnalysis = () => {
                     <TabsTrigger value="frames">Frame Analysis</TabsTrigger>
                     <TabsTrigger value="audio">Audio Analysis</TabsTrigger>
                     <TabsTrigger value="verification">Verification</TabsTrigger>
+                    <TabsTrigger value="advanced">Advanced</TabsTrigger>
+                    <TabsTrigger value="report">PDF Report</TabsTrigger>
                   </TabsList>
                   
                   <TabsContent value="summary">
@@ -389,6 +410,18 @@ const VideoAnalysis = () => {
                   
                   <TabsContent value="verification">
                     <VerificationResultsPanel verificationData={results.verificationData} />
+                  </TabsContent>
+                  
+                  <TabsContent value="advanced">
+                    <AdvancedResultsPanel detectionFeatures={results.detectionFeatures} />
+                  </TabsContent>
+                  
+                  <TabsContent value="report">
+                    <PDFReportGenerator 
+                      analysisResults={results}
+                      mediaType="video"
+                      onGenerate={handleGeneratePDFReport}
+                    />
                   </TabsContent>
                 </Tabs>
               </CardContent>

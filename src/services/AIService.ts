@@ -148,6 +148,12 @@ export class AIService {
   public static saveEnabledFeatures(features: DetectionOptions["enabledFeatures"]): void {
     localStorage.setItem("detection_features", JSON.stringify(features));
   }
+  
+  // Wrapper method to handle the actual saving with a toast notification
+  public saveEnabledFeatures(features: DetectionOptions["enabledFeatures"]): void {
+    AIService.saveEnabledFeatures(features);
+    toast.success("Detection features saved");
+  }
 
   // Get sensitivity levels from local storage
   public static getSensitivityLevels(): DetectionOptions["sensitivityLevels"] {
@@ -268,6 +274,9 @@ export class AIService {
       console.log("Would analyze image with Gemini API using key:", this.apiKey?.substring(0, 5) + "...");
       console.log("With detection options:", options);
       
+      // Get enabled features from options or from stored settings
+      const enabledFeatures = options?.enabledFeatures || AIService.getEnabledFeatures();
+      
       // Mock analysis with advanced detection results
       await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate API latency
       
@@ -276,7 +285,6 @@ export class AIService {
       
       // Mock detailed detection results based on enabled features
       const detectionFeatures: AIAnalysisResult["detectionFeatures"] = {};
-      const enabledFeatures = options?.enabledFeatures || AIService.getEnabledFeatures();
       
       // Generate mock results for each enabled feature
       if (enabledFeatures?.artifactDetection) {
@@ -300,6 +308,70 @@ export class AIService {
           detected: score > 50,
           confidence: Math.random() * 100,
           details: "Inconsistencies found in metadata suggesting manipulation"
+        };
+      }
+      
+      if (enabledFeatures?.compressionArtifacts) {
+        detectionFeatures.compressionArtifacts = {
+          detected: score > 45,
+          confidence: Math.random() * 100,
+          details: "Unusual compression patterns detected"
+        };
+      }
+      
+      if (enabledFeatures?.cnnSignatures) {
+        detectionFeatures.cnnSignatures = {
+          detected: score > 75,
+          confidence: Math.random() * 100,
+          details: "CNN-based forgery signatures identified"
+        };
+      }
+      
+      if (enabledFeatures?.eyeBlinkAnalysis) {
+        detectionFeatures.eyeBlinkAnalysis = {
+          detected: score > 55,
+          confidence: Math.random() * 100,
+          details: "Abnormal eye blinking patterns detected"
+        };
+      }
+      
+      if (enabledFeatures?.microExpressions) {
+        detectionFeatures.microExpressions = {
+          detected: score > 80,
+          confidence: Math.random() * 100,
+          details: "Unnatural micro-expressions detected"
+        };
+      }
+      
+      if (enabledFeatures?.syntheticFingerprinting) {
+        detectionFeatures.syntheticFingerprinting = {
+          detected: score > 70,
+          confidence: Math.random() * 100,
+          details: "Synthetic media fingerprints detected"
+        };
+      }
+      
+      if (enabledFeatures?.lightingShadowChecks) {
+        detectionFeatures.lightingShadowChecks = {
+          detected: score > 65,
+          confidence: Math.random() * 100,
+          details: "Inconsistencies in lighting and shadows identified"
+        };
+      }
+      
+      if (enabledFeatures?.multimodalFusion) {
+        detectionFeatures.multimodalFusion = {
+          detected: score > 60,
+          confidence: Math.random() * 100,
+          details: "Multimodal analysis revealed inconsistencies"
+        };
+      }
+      
+      if (enabledFeatures?.biasMitigation) {
+        detectionFeatures.biasMitigation = {
+          detected: score > 50,
+          confidence: Math.random() * 100,
+          details: "Analysis performed with bias mitigation techniques"
         };
       }
 

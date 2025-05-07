@@ -3,6 +3,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { APIKeySetup } from "@/components/settings/APIKeySetup";
 import { AdvancedDetectionSettings } from "@/components/settings/AdvancedDetectionSettings";
+import { FeatureSelectionPanel } from "@/components/settings/FeatureSelectionPanel";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -24,7 +25,8 @@ const Settings = () => {
           <Tabs defaultValue="api">
             <TabsList className="mb-6 w-full md:w-auto">
               <TabsTrigger value="api">API Configuration</TabsTrigger>
-              <TabsTrigger value="features">Detection Features</TabsTrigger>
+              <TabsTrigger value="features">Features</TabsTrigger>
+              <TabsTrigger value="sensitivity">Sensitivity</TabsTrigger>
               <TabsTrigger value="about">About</TabsTrigger>
             </TabsList>
             
@@ -36,6 +38,16 @@ const Settings = () => {
             </TabsContent>
             
             <TabsContent value="features" className="space-y-10">
+              <section>
+                <h2 className="text-xl font-semibold mb-4">Feature Selection</h2>
+                <p className="text-muted-foreground mb-6">
+                  Configure which deepfake detection features are enabled. Drag and drop to reorder features based on priority.
+                </p>
+                <FeatureSelectionPanel />
+              </section>
+            </TabsContent>
+            
+            <TabsContent value="sensitivity" className="space-y-10">
               <section>
                 <h2 className="text-xl font-semibold mb-4">Advanced Detection Settings</h2>
                 <AdvancedDetectionSettings />
