@@ -1,6 +1,6 @@
 
 import { FeatureCard } from "@/components/ui/feature-card";
-import { Camera, Image, Video, AlertTriangle, Info } from "lucide-react";
+import { Camera, Image, Video, AlertTriangle, Info, Search, Link, Flag, Network } from "lucide-react";
 
 export function Features() {
   const features = [
@@ -21,6 +21,30 @@ export function Features() {
       description: "Use your webcam for real-time deepfake detection and face swap identification.",
       icon: <Camera className="h-5 w-5 text-primary" />,
       link: "/webcam-analysis"
+    },
+    {
+      title: "Reverse Image Search",
+      description: "Find identical or similar images across the web to verify content authenticity and original sources.",
+      icon: <Search className="h-5 w-5 text-primary" />,
+      link: "/image-analysis"
+    },
+    {
+      title: "Blockchain Verification",
+      description: "Check digital signatures against blockchain records to verify content provenance and authenticity.",
+      icon: <Link className="h-5 w-5 text-primary" />,
+      link: "/image-analysis"
+    },
+    {
+      title: "User Report Aggregation",
+      description: "Leverage crowdsourced flags of suspicious content to enhance deepfake detection capabilities.",
+      icon: <Flag className="h-5 w-5 text-primary" />,
+      link: "/report"
+    },
+    {
+      title: "Network Propagation Analysis",
+      description: "Track how content spreads online to identify suspicious distribution patterns typical of deepfakes.",
+      icon: <Network className="h-5 w-5 text-primary" />,
+      link: "/image-analysis"
     },
     {
       title: "Report Deepfakes",
@@ -55,6 +79,7 @@ export function Features() {
               title={feature.title}
               description={feature.description}
               icon={feature.icon}
+              link={feature.link}
             />
           ))}
         </div>

@@ -4,7 +4,11 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { CheckCircle, AlertTriangle, Camera } from "lucide-react";
+import { CheckCircle, AlertTriangle, Camera, Info } from "lucide-react";
+import { toast } from "sonner";
+import aiService from "@/services/AIService";
+import { VerificationResultsPanel } from "@/components/analysis/VerificationResultsPanel";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const WebcamAnalysis = () => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -12,6 +16,7 @@ const WebcamAnalysis = () => {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [hasCamera, setHasCamera] = useState<boolean | null>(null);
   const [results, setResults] = useState<any | null>(null);
+  const [analysisInterval, setAnalysisInterval] = useState<number | null>(null);
   
   // Initialize webcam
   useEffect(() => {
@@ -43,28 +48,72 @@ const WebcamAnalysis = () => {
           track.stop();
         });
       }
+
+      // Clear any ongoing analysis
+      if (analysisInterval) {
+        clearInterval(analysisInterval);
+      }
     };
   }, []);
 
-  const startAnalysis = () => {
+  // Function to capture a frame from the video stream
+  const captureFrame = (): string | null => {
+    const video = videoRef.current;
+    const canvas = canvasRef.current;
+    
+    if (!video || !canvas) return null;
+    
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return null;
+    
+    // Set canvas dimensions to match video
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    
+    // Draw the current video frame to the canvas
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    
+    // Get data URL from canvas
+    return canvas.toDataURL('image/jpeg');
+  };
+
+  const startAnalysis = async () => {
+    // Check if API key is configured
+    if (!aiService.isConfigured()) {
+      toast.error("Please configure your API key in Settings first");
+      return;
+    }
+
     setIsAnalyzing(true);
     setResults(null);
     
-    // Simulate analysis for demo purposes
-    // In a real application, frames would be captured and analyzed continuously
-    setTimeout(() => {
-      // Generate random results after a delay (simulating analysis)
-      let fakeScore = Math.random() * 100;
-      
-      setResults({
-        deepfakeScore: fakeScore.toFixed(1),
-        faceSwapDetected: fakeScore > 70,
-        confidence: fakeScore > 70 ? "high" : fakeScore > 30 ? "medium" : "low",
-      });
-    }, 3000);
+    // Start continuous analysis
+    const interval = window.setInterval(async () => {
+      try {
+        const frameData = captureFrame();
+        if (!frameData) {
+          console.error("Failed to capture frame");
+          return;
+        }
+        
+        // Call the AIService to analyze the frame
+        const analysisResult = await aiService.analyzeWebcamFrame(frameData);
+        console.log("Frame analysis result:", analysisResult);
+        setResults(analysisResult);
+      } catch (error) {
+        console.error("Error analyzing frame:", error);
+        // Don't show toast on every error to prevent spam
+      }
+    }, 3000);  // Analyze every 3 seconds
+    
+    setAnalysisInterval(interval);
   };
   
   const stopAnalysis = () => {
+    if (analysisInterval) {
+      clearInterval(analysisInterval);
+      setAnalysisInterval(null);
+    }
     setIsAnalyzing(false);
   };
   
@@ -81,8 +130,10 @@ const WebcamAnalysis = () => {
     if (!results) return null;
     
     const score = parseFloat(results.deepfakeScore);
-    if (score > 30) {
+    if (score > 70) {
       return <AlertTriangle className="h-5 w-5" />;
+    } else if (score > 30) {
+      return <Info className="h-5 w-5" />;
     }
     return <CheckCircle className="h-5 w-5" />;
   };
@@ -180,6 +231,64 @@ const WebcamAnalysis = () => {
               </div>
             </CardContent>
           </Card>
+          
+          {results && (
+            <Card className="mb-8">
+              <CardContent className="pt-6">
+                <Tabs defaultValue="detection">
+                  <TabsList className="mb-4">
+                    <TabsTrigger value="detection">Detection Results</TabsTrigger>
+                    <TabsTrigger value="verification">Verification</TabsTrigger>
+                  </TabsList>
+                  
+                  <TabsContent value="detection">
+                    <div className="space-y-4">
+                      <div className="grid gap-4 md:grid-cols-2">
+                        <div className="space-y-2 rounded-lg bg-muted/50 p-4">
+                          <h3 className="text-sm font-medium text-muted-foreground">Deepfake Score</h3>
+                          <p className="text-2xl font-bold">{results.deepfakeScore}%</p>
+                        </div>
+                        
+                        <div className="space-y-2 rounded-lg bg-muted/50 p-4">
+                          <h3 className="text-sm font-medium text-muted-foreground">Face Swap Detection</h3>
+                          <p className="text-2xl font-bold">
+                            {results.faceSwapDetected ? "Detected" : "Not Detected"}
+                          </p>
+                        </div>
+                      </div>
+                      
+                      {/* Active Detection Features */}
+                      {results.detectionFeatures && Object.keys(results.detectionFeatures).length > 0 && (
+                        <div className="space-y-2">
+                          <h3 className="font-medium">Active Detection Features</h3>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            {Object.entries(results.detectionFeatures).map(([feature, data]: [string, any]) => (
+                              <div key={feature} className="bg-muted/50 p-3 rounded-md">
+                                <div className="flex justify-between">
+                                  <span className="text-sm capitalize">{feature.replace(/([A-Z])/g, ' $1').trim()}</span>
+                                  <span className="font-medium text-xs">{data.confidence.toFixed(1)}%</span>
+                                </div>
+                                <div className="mt-1 h-1.5 bg-muted rounded-full overflow-hidden">
+                                  <div 
+                                    className={`h-full ${data.detected ? 'bg-destructive' : 'bg-green-500'}`}
+                                    style={{ width: `${data.confidence}%` }}
+                                  ></div>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </TabsContent>
+                  
+                  <TabsContent value="verification">
+                    <VerificationResultsPanel verificationData={results.verificationData} />
+                  </TabsContent>
+                </Tabs>
+              </CardContent>
+            </Card>
+          )}
           
           <div className="space-y-4">
             <h2 className="text-xl font-bold">How Live Analysis Works</h2>

@@ -19,6 +19,33 @@ interface AIAnalysisResult {
       details?: string;
     }
   };
+  verificationData?: {
+    reverseSearchMatches?: Array<{
+      url: string;
+      confidence: number;
+      source: string;
+      matchDate?: string;
+    }>;
+    blockchainVerification?: {
+      verified: boolean;
+      hashMatch?: boolean;
+      timestamp?: string;
+      blockchain?: string;
+      transactionId?: string;
+    };
+    userReportStats?: {
+      totalReports: number;
+      flaggedAsDeepfake: number;
+      flaggedAsReal: number;
+      confidence: number;
+    };
+    networkPropagation?: {
+      firstAppearance?: string;
+      spreadVelocity?: "slow" | "medium" | "fast" | "viral";
+      majorDistributors?: string[];
+      suspiciousPattern: boolean;
+    };
+  };
 }
 
 interface DetectionOptions {
@@ -38,11 +65,16 @@ interface DetectionOptions {
     lightingShadowChecks?: boolean;
     multimodalFusion?: boolean;
     biasMitigation?: boolean;
+    reverseSearch?: boolean;
+    blockchainVerification?: boolean;
+    userReportAggregation?: boolean;
+    networkPropagationAnalysis?: boolean;
   };
   sensitivityLevels?: {
     visualDetection?: number;
     audioDetection?: number;
     metadataAnalysis?: number;
+    verificationSystems?: number;
   };
 }
 
@@ -105,6 +137,10 @@ export class AIService {
       lightingShadowChecks: true,
       multimodalFusion: false,
       biasMitigation: true,
+      reverseSearch: true,
+      blockchainVerification: true,
+      userReportAggregation: true,
+      networkPropagationAnalysis: true,
     };
   }
 
@@ -128,12 +164,96 @@ export class AIService {
       visualDetection: 70,
       audioDetection: 65,
       metadataAnalysis: 80,
+      verificationSystems: 75
     };
   }
 
   // Save sensitivity levels to local storage
   public static saveSensitivityLevels(levels: DetectionOptions["sensitivityLevels"]): void {
     localStorage.setItem("sensitivity_levels", JSON.stringify(levels));
+  }
+
+  // Perform reverse image search
+  private async reverseImageSearch(imageData: string): Promise<any> {
+    console.log("Performing reverse image search");
+    // Simulate API call with a delay
+    await new Promise(resolve => setTimeout(resolve, 800));
+    
+    // Mock response
+    return {
+      matches: [
+        {
+          url: "https://example.com/original-image.jpg",
+          confidence: 92,
+          source: "Stock photo website",
+          matchDate: "2024-03-15"
+        },
+        {
+          url: "https://socialmedia.example/user123/post",
+          confidence: 87,
+          source: "Social media",
+          matchDate: "2024-04-02"
+        }
+      ]
+    };
+  }
+
+  // Perform blockchain verification
+  private async blockchainVerify(contentHash: string): Promise<any> {
+    console.log("Verifying content against blockchain records");
+    // Simulate API call with a delay
+    await new Promise(resolve => setTimeout(resolve, 600));
+    
+    // Mock response
+    return {
+      verified: Math.random() > 0.5,
+      hashMatch: Math.random() > 0.6,
+      timestamp: "2024-05-02T14:28:33Z",
+      blockchain: "Ethereum",
+      transactionId: "0x3a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t"
+    };
+  }
+
+  // Get user reports
+  private async getUserReports(contentId: string): Promise<any> {
+    console.log("Getting user reported flags");
+    // Simulate API call with a delay
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    // Calculate random stats for demo
+    const totalReports = Math.floor(Math.random() * 200) + 50;
+    const flaggedAsDeepfake = Math.floor(Math.random() * totalReports);
+    
+    // Mock response
+    return {
+      totalReports,
+      flaggedAsDeepfake,
+      flaggedAsReal: totalReports - flaggedAsDeepfake,
+      confidence: (flaggedAsDeepfake / totalReports) * 100
+    };
+  }
+
+  // Analyze network propagation
+  private async analyzeNetworkPropagation(contentId: string): Promise<any> {
+    console.log("Analyzing network propagation patterns");
+    // Simulate API call with a delay
+    await new Promise(resolve => setTimeout(resolve, 700));
+    
+    // Mock velocity
+    const velocityOptions = ["slow", "medium", "fast", "viral"];
+    const randomVelocity = velocityOptions[Math.floor(Math.random() * velocityOptions.length)];
+    
+    // Mock response
+    return {
+      firstAppearance: "2024-04-28T09:15:22Z",
+      spreadVelocity: randomVelocity,
+      majorDistributors: [
+        "social_platform_A",
+        "messaging_app_B",
+        "forum_C"
+      ],
+      suspiciousPattern: Math.random() > 0.6
+    };
   }
 
   // Analyze image data with Gemini, including advanced detection options
@@ -182,13 +302,44 @@ export class AIService {
           details: "Inconsistencies found in metadata suggesting manipulation"
         };
       }
+
+      // Prepare verification data
+      const verificationData: AIAnalysisResult["verificationData"] = {};
+      
+      // Add reverse search results if enabled
+      if (enabledFeatures?.reverseSearch) {
+        const searchResults = await this.reverseImageSearch(imageData);
+        verificationData.reverseSearchMatches = searchResults.matches;
+      }
+      
+      // Add blockchain verification if enabled
+      if (enabledFeatures?.blockchainVerification) {
+        // In a real implementation, you would generate a hash from the image data
+        const mockContentHash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855";
+        verificationData.blockchainVerification = await this.blockchainVerify(mockContentHash);
+      }
+      
+      // Add user reports if enabled
+      if (enabledFeatures?.userReportAggregation) {
+        // In a real implementation, you would have a content ID
+        const mockContentId = "img_" + Date.now().toString();
+        verificationData.userReportStats = await this.getUserReports(mockContentId);
+      }
+      
+      // Add network propagation analysis if enabled
+      if (enabledFeatures?.networkPropagationAnalysis) {
+        // In a real implementation, you would have a content ID
+        const mockContentId = "img_" + Date.now().toString();
+        verificationData.networkPropagation = await this.analyzeNetworkPropagation(mockContentId);
+      }
       
       return {
         deepfakeScore: parseFloat(score.toFixed(1)),
         faceSwapDetected: score > 70,
         confidence: score > 70 ? "high" : score > 30 ? "medium" : "low",
         details: "Analyzed with Gemini AI using the enhanced detection suite",
-        detectionFeatures
+        detectionFeatures,
+        verificationData
       };
     } catch (error) {
       console.error("Error analyzing image:", error);
@@ -251,12 +402,42 @@ export class AIService {
         };
       }
       
+      // Prepare verification data
+      const verificationData: AIAnalysisResult["verificationData"] = {};
+      
+      // Add reverse search results if enabled
+      if (enabledFeatures?.reverseSearch) {
+        // For video, we'd typically use frames or thumbnails
+        const mockVideoFrameData = "base64_encoded_video_frame";
+        const searchResults = await this.reverseImageSearch(mockVideoFrameData);
+        verificationData.reverseSearchMatches = searchResults.matches;
+      }
+      
+      // Add blockchain verification if enabled
+      if (enabledFeatures?.blockchainVerification) {
+        const mockContentHash = "f7846f55cf23e14eebeab5b4e1550cad5b509e3348fbc4efa3a1413d393cb650";
+        verificationData.blockchainVerification = await this.blockchainVerify(mockContentHash);
+      }
+      
+      // Add user reports if enabled
+      if (enabledFeatures?.userReportAggregation) {
+        const mockContentId = "vid_" + Date.now().toString();
+        verificationData.userReportStats = await this.getUserReports(mockContentId);
+      }
+      
+      // Add network propagation analysis if enabled
+      if (enabledFeatures?.networkPropagationAnalysis) {
+        const mockContentId = "vid_" + Date.now().toString();
+        verificationData.networkPropagation = await this.analyzeNetworkPropagation(mockContentId);
+      }
+      
       return {
         deepfakeScore: parseFloat(score.toFixed(1)),
         faceSwapDetected: score > 60,
         confidence: score > 70 ? "high" : score > 30 ? "medium" : "low",
         details: "Analyzed with Gemini AI using the enhanced detection suite",
-        detectionFeatures
+        detectionFeatures,
+        verificationData
       };
     } catch (error) {
       console.error("Error analyzing video:", error);
@@ -303,12 +484,22 @@ export class AIService {
         };
       }
       
+      // For webcam, we likely wouldn't do complex verification but let's include some basic features
+      const verificationData: AIAnalysisResult["verificationData"] = {};
+      
+      // For live webcam, network propagation doesn't apply, but we can check for similar faces
+      if (enabledFeatures?.reverseSearch) {
+        const searchResults = await this.reverseImageSearch(frameData);
+        verificationData.reverseSearchMatches = searchResults.matches;
+      }
+      
       return {
         deepfakeScore: parseFloat(score.toFixed(1)),
         faceSwapDetected: score > 65,
         confidence: score > 70 ? "high" : score > 30 ? "medium" : "low",
         details: "Analyzed with Gemini AI using the enhanced detection suite",
-        detectionFeatures
+        detectionFeatures,
+        verificationData
       };
     } catch (error) {
       console.error("Error analyzing webcam frame:", error);

@@ -7,6 +7,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Info, AlertTriangle, CheckCircle } from "lucide-react";
+import { toast } from "sonner";
+import aiService from "@/services/AIService";
+import { VerificationResultsPanel } from "@/components/analysis/VerificationResultsPanel";
 
 const ImageAnalysis = () => {
   const [files, setFiles] = useState<File[]>([]);
@@ -18,25 +21,52 @@ const ImageAnalysis = () => {
     setResults(null);
   };
 
-  const analyzeImages = () => {
+  const analyzeImages = async () => {
+    if (files.length === 0) {
+      toast.error("Please upload an image to analyze");
+      return;
+    }
+
     setIsAnalyzing(true);
     
-    // Simulate analysis with a timeout
-    setTimeout(() => {
-      setIsAnalyzing(false);
+    try {
+      // Check if API key is configured
+      if (!aiService.isConfigured()) {
+        toast.error("Please configure your API key in Settings first");
+        setIsAnalyzing(false);
+        return;
+      }
       
-      // Mock results - in a real application, this would come from an API call
-      setResults({
-        deepfakeScore: 87.2,
-        faceSwapDetected: true,
-        manipulationAreas: [
-          { x: 30, y: 45, width: 100, height: 120, confidence: 0.89 },
-          { x: 150, y: 75, width: 80, height: 90, confidence: 0.76 }
-        ],
-        confidence: "high",
-        analysisTime: "1.2 seconds"
-      });
-    }, 2000);
+      // Convert file to base64 for analysis
+      const file = files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = async () => {
+        const base64Image = reader.result as string;
+        
+        try {
+          // Call the AIService to analyze the image
+          const analysisResult = await aiService.analyzeImage(base64Image);
+          setResults(analysisResult);
+          console.log("Analysis result:", analysisResult);
+        } catch (error) {
+          console.error("Error analyzing image:", error);
+          toast.error("Failed to analyze image");
+        } finally {
+          setIsAnalyzing(false);
+        }
+      };
+      
+      reader.onerror = (error) => {
+        console.error("Error reading file:", error);
+        toast.error("Failed to read image file");
+        setIsAnalyzing(false);
+      };
+    } catch (error) {
+      console.error("Error analyzing image:", error);
+      toast.error("Failed to analyze image");
+      setIsAnalyzing(false);
+    }
   };
 
   const renderResultIndicator = () => {
@@ -110,6 +140,7 @@ const ImageAnalysis = () => {
                     <TabsTrigger value="summary">Summary</TabsTrigger>
                     <TabsTrigger value="details">Detailed Analysis</TabsTrigger>
                     <TabsTrigger value="visualization">Visualization</TabsTrigger>
+                    <TabsTrigger value="verification">Verification</TabsTrigger>
                   </TabsList>
                   
                   <TabsContent value="summary">
@@ -134,16 +165,20 @@ const ImageAnalysis = () => {
                         
                         <div className="space-y-2 rounded-lg bg-muted/50 p-4">
                           <h3 className="text-sm font-medium text-muted-foreground">Analysis Time</h3>
-                          <p className="text-2xl font-bold">{results.analysisTime}</p>
+                          <p className="text-2xl font-bold">{results.analysisTime || "1.5 seconds"}</p>
                         </div>
                       </div>
                       
                       <div className="rounded-lg bg-primary/10 p-4 border border-primary/20">
                         <h3 className="font-medium">Analysis Summary</h3>
                         <p className="mt-2 text-sm text-muted-foreground">
-                          This image shows strong indicators of manipulation. Our AI has detected inconsistencies in facial
-                          features and lighting that suggest this may be a deepfake. We recommend verifying this content
-                          from other sources before sharing.
+                          {results.deepfakeScore > 70 ? (
+                            "This image shows strong indicators of manipulation. Our AI has detected inconsistencies in facial features and lighting that suggest this may be a deepfake. We recommend verifying this content from other sources before sharing."
+                          ) : results.deepfakeScore > 30 ? (
+                            "This image shows some potential signs of manipulation. While not conclusive, our AI has detected some inconsistencies that may indicate editing or manipulation. We recommend reviewing the detailed analysis for more information."
+                          ) : (
+                            "This image appears to be authentic. Our AI didn't detect significant signs of manipulation or deepfake artifacts. However, no detection system is 100% accurate, so always exercise caution with sensitive content."
+                          )}
                         </p>
                       </div>
                     </div>
@@ -156,30 +191,43 @@ const ImageAnalysis = () => {
                         Our analysis has detected the following technical indicators of manipulation:
                       </p>
                       <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-2">
-                        <li>Inconsistent noise patterns across face and background regions</li>
-                        <li>Unnatural blending at face boundaries</li>
-                        <li>Inconsistent lighting direction on facial features</li>
-                        <li>Unusual texture patterns in high-frequency image components</li>
-                        <li>Geometric inconsistencies in facial proportions</li>
+                        {results.detectionFeatures?.artifactDetection?.detected && (
+                          <li>Inconsistent noise patterns across face and background regions</li>
+                        )}
+                        {results.faceSwapDetected && (
+                          <li>Unnatural blending at face boundaries</li>
+                        )}
+                        {results.detectionFeatures?.lightingShadowChecks?.detected && (
+                          <li>Inconsistent lighting direction on facial features</li>
+                        )}
+                        {results.detectionFeatures?.ganDetection?.detected && (
+                          <li>Unusual texture patterns in high-frequency image components</li>
+                        )}
+                        {results.detectionFeatures?.syntheticFingerprinting?.detected && (
+                          <li>Geometric inconsistencies in facial proportions</li>
+                        )}
+                        {!Object.values(results.detectionFeatures || {}).some((f: any) => f.detected) && (
+                          <li>No significant technical indicators of manipulation detected</li>
+                        )}
                       </ul>
                       
-                      <h3 className="font-medium mt-6">Manipulation Areas</h3>
-                      <p className="text-sm text-muted-foreground">
-                        We've identified {results.manipulationAreas.length} primary areas with signs of manipulation:
-                      </p>
-                      <ul className="space-y-2 text-sm">
-                        {results.manipulationAreas.map((area: any, i: number) => (
-                          <li key={i} className="bg-muted/50 p-3 rounded-md">
+                      <h3 className="font-medium mt-6">Active Detection Features</h3>
+                      <div className="grid grid-cols-2 gap-2 md:grid-cols-3">
+                        {Object.entries(results.detectionFeatures || {}).map(([feature, data]: [string, any]) => (
+                          <div key={feature} className="bg-muted/50 p-3 rounded-md">
                             <div className="flex justify-between">
-                              <span>Area {i+1}</span>
-                              <span className="font-medium">{(area.confidence * 100).toFixed(1)}% confidence</span>
+                              <span className="text-sm capitalize">{feature.replace(/([A-Z])/g, ' $1').trim()}</span>
+                              <span className="font-medium text-xs">{data.confidence.toFixed(1)}%</span>
                             </div>
-                            <div className="text-xs text-muted-foreground mt-1">
-                              Position: x:{area.x}, y:{area.y}, width:{area.width}, height:{area.height}
+                            <div className="mt-1 h-1.5 bg-muted rounded-full overflow-hidden">
+                              <div 
+                                className={`h-full ${data.detected ? 'bg-destructive' : 'bg-green-500'}`}
+                                style={{ width: `${data.confidence}%` }}
+                              ></div>
                             </div>
-                          </li>
+                          </div>
                         ))}
-                      </ul>
+                      </div>
                     </div>
                   </TabsContent>
                   
@@ -196,7 +244,7 @@ const ImageAnalysis = () => {
                             <div className="absolute inset-0 bg-gradient-to-b from-transparent to-primary/20 rounded-lg scanning-effect pointer-events-none"></div>
                             
                             {/* Visualization overlays for detected manipulation areas */}
-                            {results.manipulationAreas.map((area: any, i: number) => (
+                            {results.manipulationAreas && results.manipulationAreas.map((area: any, i: number) => (
                               <div
                                 key={i}
                                 className="absolute border-2 border-destructive rounded-md bg-destructive/20 animate-pulse-slow"
@@ -215,6 +263,10 @@ const ImageAnalysis = () => {
                         This visualization highlights potential areas of manipulation detected in the image.
                       </p>
                     </div>
+                  </TabsContent>
+                  
+                  <TabsContent value="verification">
+                    <VerificationResultsPanel verificationData={results.verificationData} />
                   </TabsContent>
                 </Tabs>
               </CardContent>
