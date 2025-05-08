@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import ImageAnalysis from "./pages/ImageAnalysis";
 import VideoAnalysis from "./pages/VideoAnalysis";
 import WebcamAnalysis from "./pages/WebcamAnalysis";
+import BlockchainFeatures from "./pages/BlockchainFeatures";
 import Report from "./pages/Report";
 import Resources from "./pages/Resources";
 import Settings from "./pages/Settings";
@@ -26,6 +27,7 @@ const App = () => (
           <Route path="/image-analysis" element={<ImageAnalysis />} />
           <Route path="/video-analysis" element={<VideoAnalysis />} />
           <Route path="/webcam-analysis" element={<WebcamAnalysis />} />
+          <Route path="/blockchain" element={<BlockchainFeatures />} />
           <Route path="/report" element={<Report />} />
           <Route path="/resources" element={<Resources />} />
           <Route path="/settings" element={<Settings />} />

@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { AlertCircle, CheckCircle, Save } from "lucide-react";
 import { toast } from "sonner";
-import aiService from "@/services/AIService";
+import aiService, { AIService } from "@/services/AIService";
 
 interface Feature {
   id: string;
@@ -17,7 +17,7 @@ interface Feature {
 
 export function FeatureSelectionPanel() {
   // Get stored features from AIService
-  const storedFeatures = aiService.getEnabledFeatures?.() || {};
+  const storedFeatures = AIService.getEnabledFeatures() || {};
   
   // Initial features state with enabled status from storage
   const [features, setFeatures] = useState<Feature[]>([
