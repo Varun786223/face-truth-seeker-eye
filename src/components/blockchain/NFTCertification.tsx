@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -15,9 +14,9 @@ import blockchainService from "@/services/BlockchainService";
 export function NFTCertification() {
   const [file, setFile] = useState<File | null>(null);
   const [mediaHash, setMediaHash] = useState<string | null>(null);
-  const [contentTitle, setContentTitle] = useState("");
-  const [contentDescription, setContentDescription] = useState("");
-  const [isGeneratingHash, setIsGeneratingHash] = useState(false);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [isMinting, setIsMinting] = useState(false);
   const [tokenId, setTokenId] = useState<string | null>(null);
   
@@ -63,7 +62,7 @@ export function NFTCertification() {
       return;
     }
     
-    if (!contentTitle) {
+    if (!title) {
       toast.error("Please enter a title for your content");
       return;
     }
@@ -77,7 +76,7 @@ export function NFTCertification() {
     
     try {
       // Generate NFT certification
-      const id = await blockchainService.generateNFTCertification(mediaHash, contentTitle);
+      const id = await blockchainService.generateNFTCertification(mediaHash, title);
       setTokenId(id);
     } catch (error) {
       console.error("Error minting NFT:", error);
@@ -121,7 +120,6 @@ export function NFTCertification() {
           <FileUpload 
             onChange={handleFileChange}
             accept="image/*,video/*"
-            maxSize={50 * 1024 * 1024}
           />
           
           {file && (
@@ -152,22 +150,22 @@ export function NFTCertification() {
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="contentTitle">Content Title</Label>
+                <Label htmlFor="title">Content Title</Label>
                 <Input
-                  id="contentTitle"
+                  id="title"
                   placeholder="Enter a title for your content"
-                  value={contentTitle}
-                  onChange={(e) => setContentTitle(e.target.value)}
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
                 />
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="contentDescription">Content Description (Optional)</Label>
+                <Label htmlFor="description">Content Description (Optional)</Label>
                 <Textarea
-                  id="contentDescription"
+                  id="description"
                   placeholder="Describe your content (optional)"
-                  value={contentDescription}
-                  onChange={(e) => setContentDescription(e.target.value)}
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
                   className="resize-none"
                   rows={3}
                 />
@@ -234,7 +232,7 @@ export function NFTCertification() {
           {mediaHash && !tokenId && (
             <Button 
               onClick={mintNFTCertification}
-              disabled={!mediaHash || !contentTitle || isMinting || !blockchainService.isWalletConnected()}
+              disabled={!mediaHash || !title || isMinting || !blockchainService.isWalletConnected()}
               className="w-full sm:w-auto"
             >
               {isMinting ? "Minting..." : "Mint NFT Certificate"}

@@ -112,7 +112,6 @@ export function MediaHashingPanel() {
           <FileUpload 
             onChange={handleFileChange}
             accept="image/*,video/*"
-            maxSize={50 * 1024 * 1024}
           />
           
           {file && (
