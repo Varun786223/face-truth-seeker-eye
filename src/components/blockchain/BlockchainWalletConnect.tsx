@@ -11,7 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Database, Polygon, Shield } from "lucide-react";
+import { Database, Hexagon, Shield } from "lucide-react";
 import blockchainService from "@/services/BlockchainService";
 
 interface BlockchainWalletConnectProps {
@@ -90,7 +90,7 @@ export function BlockchainWalletConnect({ className = "" }: BlockchainWalletConn
                   </SelectItem>
                   <SelectItem value="polygon">
                     <div className="flex items-center">
-                      <Polygon className="h-4 w-4 mr-2" />
+                      <Hexagon className="h-4 w-4 mr-2" />
                       Polygon
                     </div>
                   </SelectItem>

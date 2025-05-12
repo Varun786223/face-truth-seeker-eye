@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -7,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { FileUpload } from "@/components/ui/file-upload";
-import { AlertCircle, Vote } from "lucide-react";
+import { AlertCircle } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { toast } from "sonner";
 import blockchainService from "@/services/BlockchainService";
@@ -119,9 +118,9 @@ export function DAOPanel() {
         </CardHeader>
         <CardContent className="space-y-4">
           <FileUpload 
-            onFileSelected={handleFileChange}
-            acceptedFileTypes={"image/*,video/*"}
-            maxSizeMB={50}
+            onChange={handleFileChange}
+            accept="image/*,video/*"
+            maxSize={50 * 1024 * 1024}
           />
           
           {file && (

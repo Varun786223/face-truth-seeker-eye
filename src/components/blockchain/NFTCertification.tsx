@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -117,9 +116,9 @@ export function NFTCertification() {
         </CardHeader>
         <CardContent className="space-y-4">
           <FileUpload 
-            onFileSelected={handleFileChange}
-            acceptedFileTypes={"image/*,video/*"}
-            maxSizeMB={50}
+            onChange={handleFileChange}
+            accept="image/*,video/*"
+            maxSize={50 * 1024 * 1024}
           />
           
           {file && (
