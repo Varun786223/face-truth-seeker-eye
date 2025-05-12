@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -20,7 +21,9 @@ export function NFTCertification() {
   const [isMinting, setIsMinting] = useState(false);
   const [tokenId, setTokenId] = useState<string | null>(null);
   
-  const handleFileChange = (selectedFile: File | null) => {
+  const handleFileChange = (files: File[]) => {
+    // Use the first file if available
+    const selectedFile = files.length > 0 ? files[0] : null;
     setFile(selectedFile);
     setMediaHash(null);
     setTokenId(null);
