@@ -233,7 +233,7 @@ const allFeatures: Feature[] = [
   {
     id: "elder-scam-shield",
     title: "Elder Scam Shield",
-    description: "Blocks synthetic "grandchild emergency" calls",
+    description: 'Blocks synthetic "grandchild emergency" calls',
     category: "citizen-protection",
     problem: "Elderly are targeted by voice-cloned scam calls",
     revenue: "Telecom provider integration",
@@ -314,7 +314,7 @@ const allFeatures: Feature[] = [
   {
     id: "grief-prevention",
     title: "Grief Prevention",
-    description: "Stops "resurrection" scams",
+    description: 'Stops "resurrection" scams',
     category: "citizen-protection",
     problem: "Synthetic deceased loved-ones exploit grief",
     revenue: "Social platform integrations",
