@@ -1,7 +1,6 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { DragDropFeatureGrid } from "@/components/home/DragDropFeatureGrid";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import { featuresByCategory } from "@/data/features";
@@ -15,10 +14,10 @@ export function FeatureCategories() {
       <div className="container">
         <div className="mx-auto max-w-3xl text-center mb-12">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
-            AI Fraud Detection Solutions
+            AI Fraud Detection Categories
           </h2>
           <p className="mt-4 text-muted-foreground md:text-lg">
-            Drag and drop features to explore our comprehensive suite of AI fraud detection tools
+            Explore our specialized detection solutions by category
           </p>
         </div>
         
@@ -47,14 +46,46 @@ export function FeatureCategories() {
                   {getCategoryDescription(category)}
                 </p>
               </div>
-              <DragDropFeatureGrid features={featuresByCategory[category]} />
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {featuresByCategory[category].slice(0, 3).map((feature, i) => (
+                  <div 
+                    key={feature.id}
+                    className="bg-card border rounded-lg p-5 hover:shadow-md transition-shadow"
+                  >
+                    <div className="flex items-center space-x-3 mb-3">
+                      <div className="bg-primary/10 p-2 rounded-full">
+                        <span className="text-lg">{getEmojiForFeature(feature.id)}</span>
+                      </div>
+                      <h3 className="font-semibold">{feature.title}</h3>
+                    </div>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      {feature.description}
+                    </p>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      asChild 
+                      className="w-full mt-2"
+                    >
+                      <a href={feature.link}>Try this feature</a>
+                    </Button>
+                  </div>
+                ))}
+              </div>
+              
+              <div className="flex justify-center mt-8">
+                <Button asChild variant="default">
+                  <a href="#all-features">See All {category.replace("-", " ")} Features</a>
+                </Button>
+              </div>
             </TabsContent>
           ))}
         </Tabs>
         
         <div className="flex justify-center mt-12">
           <Button size="lg" asChild>
-            <a href="/settings">Configure Detection Features</a>
+            <a href="/settings">Configure Detection Settings</a>
           </Button>
         </div>
       </div>
@@ -71,4 +102,41 @@ function getCategoryDescription(category: string): string {
   };
   
   return descriptions[category] || "";
+}
+
+function getEmojiForFeature(featureId: string): string {
+  const emojiMap: Record<string, string> = {
+    // Detection features
+    "dna-sequence-validation": "🧬",
+    "quantum-hash-timestamping": "⏱️",
+    "neural-implant-authentication": "🧠",
+    "synthetic-olfactory-detection": "👃",
+    "climate-data-forgery-audit": "☁️",
+    "robotic-motion-analysis": "🤖",
+    "nanomaterial-blueprint-check": "🔬",
+    "legal-doc-scanner": "📄",
+    "political-speech-analyzer": "🗣️",
+    "medication-ad-validator": "💊",
+    
+    // Citizen protection features
+    "elder-scam-shield": "👵",
+    "romance-bait-detector": "❤️",
+    "job-interview-verifier": "💼",
+    "child-digital-twin-alert": "👶",
+    
+    // Revenue features
+    "deepfake-insurance": "💰",
+    "virtual-notary": "✍️",
+    "media-license-registry": "📝",
+    
+    // Government features
+    "military-simulation-validator": "🎖️",
+    "pandemic-early-warning": "🦠",
+    "ai-news-monitoring": "📰",
+    
+    // Default
+    "default": "🛡️"
+  };
+  
+  return emojiMap[featureId] || emojiMap["default"];
 }
