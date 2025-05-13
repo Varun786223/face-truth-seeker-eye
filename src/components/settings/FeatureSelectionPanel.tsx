@@ -3,9 +3,11 @@ import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { AlertCircle, CheckCircle, Save } from "lucide-react";
+import { AlertCircle, CheckCircle, Save, Search, Zap } from "lucide-react";
 import { toast } from "sonner";
 import aiService, { AIService } from "@/services/AIService";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
 
 interface Feature {
   id: string;
@@ -167,6 +169,18 @@ export function FeatureSelectionPanel() {
   
   const [draggedFeature, setDraggedFeature] = useState<string | null>(null);
   const [activeCategory, setActiveCategory] = useState<string>("all");
+  const [searchQuery, setSearchQuery] = useState("");
+  
+  // Filter features by search query and category
+  const filteredFeatures = features.filter(feature => {
+    const matchesSearch = !searchQuery || 
+      feature.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+      feature.description.toLowerCase().includes(searchQuery.toLowerCase());
+    
+    const matchesCategory = activeCategory === "all" || feature.category === activeCategory;
+    
+    return matchesSearch && matchesCategory;
+  });
   
   // Handle feature drag start
   const handleDragStart = (id: string) => {
@@ -197,11 +211,6 @@ export function FeatureSelectionPanel() {
     );
   };
   
-  // Filter features by category
-  const filteredFeatures = activeCategory === "all" 
-    ? features 
-    : features.filter(f => f.category === activeCategory);
-  
   // Save features configuration
   const saveFeatures = () => {
     const enabledFeatures: Record<string, boolean> = {};
@@ -216,12 +225,24 @@ export function FeatureSelectionPanel() {
     }
   };
   
+  // Count features by category
+  const getCategoryCount = (category: string) => {
+    return features.filter(f => f.category === category).length;
+  };
+  
+  // Count enabled features
+  const getEnabledCount = () => {
+    return features.filter(f => f.enabled).length;
+  };
+  
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
         <div>
           <h2 className="text-xl font-semibold">Feature Selection</h2>
-          <p className="text-muted-foreground text-sm">Drag and drop to reorder features and toggle to enable/disable</p>
+          <p className="text-muted-foreground text-sm">
+            Drag and drop to reorder features and toggle to enable/disable
+          </p>
         </div>
         <Button onClick={saveFeatures} className="gap-2">
           <Save className="h-4 w-4" />
@@ -229,48 +250,70 @@ export function FeatureSelectionPanel() {
         </Button>
       </div>
       
-      <div className="flex gap-2 overflow-x-auto pb-2">
-        <Button 
-          variant={activeCategory === "all" ? "default" : "outline"}
-          size="sm"
-          onClick={() => setActiveCategory("all")}
-        >
-          All Features
-        </Button>
-        <Button 
-          variant={activeCategory === "visual" ? "default" : "outline"}
-          size="sm"
-          onClick={() => setActiveCategory("visual")}
-        >
-          Visual
-        </Button>
-        <Button 
-          variant={activeCategory === "audio" ? "default" : "outline"}
-          size="sm"
-          onClick={() => setActiveCategory("audio")}
-        >
-          Audio
-        </Button>
-        <Button 
-          variant={activeCategory === "metadata" ? "default" : "outline"}
-          size="sm"
-          onClick={() => setActiveCategory("metadata")}
-        >
-          Metadata
-        </Button>
-        <Button 
-          variant={activeCategory === "verification" ? "default" : "outline"}
-          size="sm"
-          onClick={() => setActiveCategory("verification")}
-        >
-          Verification
-        </Button>
+      <div className="flex flex-col md:flex-row gap-4 md:items-center">
+        <div className="relative flex-grow">
+          <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+          <Input
+            placeholder="Search features..."
+            className="pl-9"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
+        
+        <div className="flex gap-2 overflow-x-auto pb-2">
+          <Button 
+            variant={activeCategory === "all" ? "default" : "outline"}
+            size="sm"
+            onClick={() => setActiveCategory("all")}
+            className="gap-2"
+          >
+            All Features
+            <Badge variant="outline">{features.length}</Badge>
+          </Button>
+          <Button 
+            variant={activeCategory === "visual" ? "default" : "outline"}
+            size="sm"
+            onClick={() => setActiveCategory("visual")}
+            className="gap-2"
+          >
+            Visual
+            <Badge variant="outline">{getCategoryCount("visual")}</Badge>
+          </Button>
+          <Button 
+            variant={activeCategory === "audio" ? "default" : "outline"}
+            size="sm"
+            onClick={() => setActiveCategory("audio")}
+            className="gap-2"
+          >
+            Audio
+            <Badge variant="outline">{getCategoryCount("audio")}</Badge>
+          </Button>
+          <Button 
+            variant={activeCategory === "metadata" ? "default" : "outline"}
+            size="sm"
+            onClick={() => setActiveCategory("metadata")}
+            className="gap-2"
+          >
+            Metadata
+            <Badge variant="outline">{getCategoryCount("metadata")}</Badge>
+          </Button>
+          <Button 
+            variant={activeCategory === "verification" ? "default" : "outline"}
+            size="sm"
+            onClick={() => setActiveCategory("verification")}
+            className="gap-2"
+          >
+            Verification
+            <Badge variant="outline">{getCategoryCount("verification")}</Badge>
+          </Button>
+        </div>
       </div>
       
-      <Alert>
-        <AlertCircle className="h-4 w-4" />
+      <Alert className="bg-primary/5 border-primary/20">
+        <Zap className="h-4 w-4 text-primary" />
         <AlertDescription>
-          Drag and drop features to reorder them. Click on a feature to toggle it on/off.
+          {getEnabledCount()} of {features.length} features enabled. Drag and drop features to reorder them. Click on a feature to toggle it on/off.
         </AlertDescription>
       </Alert>
       
@@ -289,9 +332,9 @@ export function FeatureSelectionPanel() {
               <div>
                 <h3 className="font-medium">{feature.name}</h3>
                 <p className="text-sm text-muted-foreground">{feature.description}</p>
-                <span className="text-xs bg-primary/10 px-2 py-0.5 rounded-full mt-1 inline-block">
+                <Badge variant="outline" className="mt-1 text-xs">
                   {feature.category}
-                </span>
+                </Badge>
               </div>
               <div className={`h-6 w-6 rounded-full ${feature.enabled ? 'bg-green-100' : 'bg-muted'} flex items-center justify-center`}>
                 {feature.enabled && <CheckCircle className="h-4 w-4 text-green-600" />}
@@ -303,7 +346,16 @@ export function FeatureSelectionPanel() {
       
       {filteredFeatures.length === 0 && (
         <div className="text-center py-8 text-muted-foreground">
-          No features found in this category
+          <Search className="mx-auto h-8 w-8 opacity-20 mb-2" />
+          <p>No features found matching your criteria</p>
+          {searchQuery && (
+            <Button 
+              variant="link" 
+              onClick={() => setSearchQuery("")}
+            >
+              Clear search
+            </Button>
+          )}
         </div>
       )}
     </div>

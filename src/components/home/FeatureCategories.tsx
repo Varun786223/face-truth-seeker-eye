@@ -4,20 +4,22 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import { featuresByCategory } from "@/data/features";
+import { Badge } from "@/components/ui/badge";
+import { Shield, Zap, ArrowRight } from "lucide-react";
 
 export function FeatureCategories() {
   const [activeCategory, setActiveCategory] = useState<string>("detection");
   const categories = Object.keys(featuresByCategory);
   
   return (
-    <section className="py-12 md:py-20 bg-background" id="features">
+    <section className="py-12 md:py-20 bg-gradient-to-b from-background to-muted/20" id="features">
       <div className="container">
         <div className="mx-auto max-w-3xl text-center mb-12">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
-            AI Fraud Detection Categories
+            AI Analysis Categories
           </h2>
           <p className="mt-4 text-muted-foreground md:text-lg">
-            Explore our specialized detection solutions by category
+            Explore our specialized analysis solutions by category
           </p>
         </div>
         
@@ -34,6 +36,9 @@ export function FeatureCategories() {
                   )}
                 >
                   {category.replace("-", " ")}
+                  <Badge variant="outline" className="ml-2">
+                    {featuresByCategory[category]?.length || 0}
+                  </Badge>
                 </TabsTrigger>
               ))}
             </TabsList>
@@ -47,7 +52,7 @@ export function FeatureCategories() {
                 </p>
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {featuresByCategory[category].slice(0, 3).map((feature, i) => (
                   <div 
                     key={feature.id}
@@ -55,7 +60,11 @@ export function FeatureCategories() {
                   >
                     <div className="flex items-center space-x-3 mb-3">
                       <div className="bg-primary/10 p-2 rounded-full">
-                        <span className="text-lg">{getEmojiForFeature(feature.id)}</span>
+                        {i === 0 ? (
+                          <Zap className="h-4 w-4 text-primary" />
+                        ) : (
+                          <Shield className="h-4 w-4 text-primary" />
+                        )}
                       </div>
                       <h3 className="font-semibold">{feature.title}</h3>
                     </div>
@@ -66,9 +75,12 @@ export function FeatureCategories() {
                       variant="outline" 
                       size="sm" 
                       asChild 
-                      className="w-full mt-2"
+                      className="w-full mt-2 group"
                     >
-                      <a href={feature.link}>Try this feature</a>
+                      <a href={feature.link}>
+                        Try this feature
+                        <ArrowRight className="ml-2 h-3 w-3 transition-transform group-hover:translate-x-1" />
+                      </a>
                     </Button>
                   </div>
                 ))}
@@ -84,8 +96,11 @@ export function FeatureCategories() {
         </Tabs>
         
         <div className="flex justify-center mt-12">
-          <Button size="lg" asChild>
-            <a href="/settings">Configure Detection Settings</a>
+          <Button size="lg" asChild className="gap-2">
+            <a href="/settings">
+              <Shield className="h-4 w-4" />
+              Configure Analysis Settings
+            </a>
           </Button>
         </div>
       </div>
@@ -97,46 +112,9 @@ function getCategoryDescription(category: string): string {
   const descriptions: Record<string, string> = {
     "detection": "Advanced algorithms to identify synthetic and manipulated content across multiple formats.",
     "citizen-protection": "Tools designed to protect individuals from AI-powered fraud and scams.",
-    "revenue": "Enterprise solutions for businesses to protect against and monetize AI fraud detection.",
+    "revenue": "Enterprise solutions for businesses to protect against and monetize AI analysis.",
     "government": "Critical systems and infrastructure protection for governments and public institutions."
   };
   
   return descriptions[category] || "";
-}
-
-function getEmojiForFeature(featureId: string): string {
-  const emojiMap: Record<string, string> = {
-    // Detection features
-    "dna-sequence-validation": "🧬",
-    "quantum-hash-timestamping": "⏱️",
-    "neural-implant-authentication": "🧠",
-    "synthetic-olfactory-detection": "👃",
-    "climate-data-forgery-audit": "☁️",
-    "robotic-motion-analysis": "🤖",
-    "nanomaterial-blueprint-check": "🔬",
-    "legal-doc-scanner": "📄",
-    "political-speech-analyzer": "🗣️",
-    "medication-ad-validator": "💊",
-    
-    // Citizen protection features
-    "elder-scam-shield": "👵",
-    "romance-bait-detector": "❤️",
-    "job-interview-verifier": "💼",
-    "child-digital-twin-alert": "👶",
-    
-    // Revenue features
-    "deepfake-insurance": "💰",
-    "virtual-notary": "✍️",
-    "media-license-registry": "📝",
-    
-    // Government features
-    "military-simulation-validator": "🎖️",
-    "pandemic-early-warning": "🦠",
-    "ai-news-monitoring": "📰",
-    
-    // Default
-    "default": "🛡️"
-  };
-  
-  return emojiMap[featureId] || emojiMap["default"];
 }

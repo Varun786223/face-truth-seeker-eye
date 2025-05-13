@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
-import { AlertCircle, Search, Flag } from "lucide-react";
+import { AlertCircle, Search, Flag, Database, ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
 import blockchainService from "@/services/BlockchainService";
 
@@ -33,11 +33,11 @@ export function DecentralizedBlacklist() {
       setBlacklistResult(result);
       
       if (!result) {
-        toast.info("Media not found in blacklist");
+        toast.info("Media not found in registry");
       }
     } catch (error) {
-      console.error("Error checking blacklist:", error);
-      toast.error("Error checking blacklist");
+      console.error("Error checking registry:", error);
+      toast.error("Error checking registry");
     } finally {
       setIsSearching(false);
     }
@@ -66,12 +66,13 @@ export function DecentralizedBlacklist() {
       const success = await blockchainService.reportToBlacklist(reportHash, reportReason);
       
       if (success) {
+        toast.success("Successfully reported to the registry");
         setReportHash("");
         setReportReason("");
       }
     } catch (error) {
-      console.error("Error reporting to blacklist:", error);
-      toast.error("Error reporting to blacklist");
+      console.error("Error reporting to registry:", error);
+      toast.error("Error reporting to registry");
     } finally {
       setIsReporting(false);
     }
@@ -80,19 +81,22 @@ export function DecentralizedBlacklist() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-xl font-semibold mb-2">Decentralized Blacklist</h2>
+        <h2 className="text-xl font-semibold mb-2">Decentralized Content Registry</h2>
         <p className="text-muted-foreground">
-          Check and report hashes to a public ledger of known deepfakes, stored on the blockchain.
-          This helps platforms automatically flag reuploads of known manipulated content.
+          Check and report hashes to a public ledger of analyzed content, stored on the blockchain.
+          This helps platforms automatically flag manipulated or synthetic content.
         </p>
       </div>
       
       <div className="grid md:grid-cols-2 gap-6">
         <Card>
           <CardHeader>
-            <CardTitle>Check Blacklist</CardTitle>
+            <CardTitle className="flex items-center gap-2">
+              <Search className="h-5 w-5 text-primary" />
+              Check Registry
+            </CardTitle>
             <CardDescription>
-              Verify if a media hash has been reported as deepfake
+              Verify if a media hash has been reported as manipulated
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -110,15 +114,16 @@ export function DecentralizedBlacklist() {
             <Button 
               onClick={handleSearch}
               disabled={!searchHash || isSearching}
-              className="w-full"
+              className="w-full gap-2"
             >
-              {isSearching ? "Searching..." : "Check Blacklist"}
+              <Database className="h-4 w-4" />
+              {isSearching ? "Searching..." : "Check Registry"}
             </Button>
             
             {blacklistResult && (
               <div className="mt-4 p-4 border rounded-md bg-destructive/5">
                 <div className="flex items-center justify-between">
-                  <Badge variant="destructive">Blacklisted</Badge>
+                  <Badge variant="destructive">Registered</Badge>
                   <span className="text-sm text-muted-foreground">
                     {new Date(blacklistResult.dateAdded).toLocaleDateString()}
                   </span>
@@ -139,9 +144,12 @@ export function DecentralizedBlacklist() {
         
         <Card>
           <CardHeader>
-            <CardTitle>Report to Blacklist</CardTitle>
+            <CardTitle className="flex items-center gap-2">
+              <Flag className="h-5 w-5 text-primary" />
+              Report to Registry
+            </CardTitle>
             <CardDescription>
-              Report a deepfake to the decentralized blacklist
+              Report manipulated media to the decentralized registry
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -160,7 +168,7 @@ export function DecentralizedBlacklist() {
               <Label htmlFor="reportReason">Reason for Reporting</Label>
               <Textarea
                 id="reportReason"
-                placeholder="Explain why this content should be blacklisted"
+                placeholder="Explain why this content should be registered"
                 value={reportReason}
                 onChange={(e) => setReportReason(e.target.value)}
                 className="resize-none"
@@ -171,9 +179,10 @@ export function DecentralizedBlacklist() {
             <Button 
               onClick={handleReport}
               disabled={!reportHash || !reportReason || isReporting || !blockchainService.isWalletConnected()}
-              className="w-full"
+              className="w-full gap-2"
             >
-              {isReporting ? "Submitting..." : "Report to Blacklist"}
+              <ShieldCheck className="h-4 w-4" />
+              {isReporting ? "Submitting..." : "Report to Registry"}
             </Button>
           </CardContent>
         </Card>
@@ -182,8 +191,8 @@ export function DecentralizedBlacklist() {
       <Alert>
         <AlertCircle className="h-4 w-4" />
         <AlertDescription>
-          The decentralized blacklist is maintained by a network of validators and trusted organizations.
-          Submitting a report requires a wallet connection and may earn you TRUTH tokens if validated.
+          The decentralized registry is maintained by a network of validators and trusted organizations.
+          Submitting a report requires a wallet connection and may earn you TRUST tokens if validated.
         </AlertDescription>
       </Alert>
     </div>
