@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -17,6 +18,7 @@ export function NFTCertification() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isGeneratingHash, setIsGeneratingHash] = useState(false);
   const [isMinting, setIsMinting] = useState(false);
   const [tokenId, setTokenId] = useState<string | null>(null);
   
@@ -210,13 +212,13 @@ export function NFTCertification() {
                 <div className="flex mt-1">
                   <Input 
                     readOnly 
-                    value={`<iframe src="https://deepfake-detector.com/verify/${tokenId}" width="300" height="80" frameborder="0"></iframe>`}
+                    value={`<iframe src="https://deepsentinel.com/verify/${tokenId}" width="300" height="80" frameborder="0"></iframe>`}
                     className="font-mono text-xs"
                   />
                   <Button 
                     variant="outline" 
                     className="ml-2"
-                    onClick={() => copyToClipboard(`<iframe src="https://deepfake-detector.com/verify/${tokenId}" width="300" height="80" frameborder="0"></iframe>`)}
+                    onClick={() => copyToClipboard(`<iframe src="https://deepsentinel.com/verify/${tokenId}" width="300" height="80" frameborder="0"></iframe>`)}
                   >
                     <Copy className="h-4 w-4" />
                   </Button>

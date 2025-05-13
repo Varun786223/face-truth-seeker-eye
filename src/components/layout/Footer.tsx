@@ -7,9 +7,9 @@ export function Footer() {
       <div className="container py-8 md:py-12">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           <div className="space-y-4">
-            <h3 className="text-lg font-bold">DeepfakeDetector</h3>
+            <h3 className="text-lg font-bold">DeepSentinel</h3>
             <p className="text-sm text-muted-foreground">
-              An AI-powered tool to detect and analyze potential deepfake content in images and videos.
+              An AI-powered tool to detect and analyze all types of AI fraud including deepfakes, synthetic content, and manipulated data.
             </p>
           </div>
           
@@ -39,12 +39,12 @@ export function Footer() {
             <ul className="space-y-2 text-sm">
               <li>
                 <Link to="/resources" className="text-muted-foreground hover:text-foreground">
-                  Learn About Deepfakes
+                  Learn About AI Fraud
                 </Link>
               </li>
               <li>
                 <Link to="/report" className="text-muted-foreground hover:text-foreground">
-                  Report a Deepfake
+                  Report Synthetic Content
                 </Link>
               </li>
               <li>
@@ -78,7 +78,7 @@ export function Footer() {
         </div>
         
         <div className="mt-8 border-t pt-6 text-center text-sm text-muted-foreground">
-          <p>© 2025 DeepfakeDetector. All rights reserved.</p>
+          <p>© 2025 DeepSentinel. All rights reserved.</p>
         </div>
       </div>
     </footer>

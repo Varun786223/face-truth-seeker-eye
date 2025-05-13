@@ -24,7 +24,7 @@ const Index = () => {
             <div className="bg-primary/5 rounded-xl p-6 border border-primary/10">
               <h2 className="text-2xl font-semibold mb-4">Advanced Detection Features</h2>
               <p className="text-muted-foreground mb-6">
-                Our deepfake detector now includes 15+ specialized detection techniques including:
+                DeepSentinel now includes 15+ specialized detection techniques including:
               </p>
               
               <div className="grid gap-3 md:grid-cols-3 mb-6">
@@ -67,7 +67,7 @@ const Index = () => {
             <div className="rounded-xl bg-muted/50 p-6">
               <h2 className="text-lg font-semibold mb-2">AI-Powered Analysis</h2>
               <p className="text-muted-foreground mb-4">
-                Configure your Gemini API key to enable accurate deepfake detection results
+                Configure your Gemini API key to enable accurate AI fraud detection results
               </p>
               <Button asChild>
                 <Link to="/settings" className="inline-flex items-center gap-2">

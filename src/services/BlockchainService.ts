@@ -237,6 +237,29 @@ export class BlockchainService {
     return true;
   }
   
+  // Create DAO proposal
+  public async createDAOProposal(title: string, description: string, mediaHash: string): Promise<{ 
+    success: boolean; 
+    proposalId?: string; 
+  }> {
+    if (!this.isConnected) {
+      toast.error("Wallet not connected");
+      return { success: false };
+    }
+    
+    console.log(`Creating DAO proposal: ${title}`);
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
+    // Mock proposal ID
+    const proposalId = "PROP-" + Math.random().toString(36).substring(2, 10).toUpperCase();
+    
+    toast.success("Proposal created successfully");
+    return { 
+      success: true,
+      proposalId
+    };
+  }
+  
   // Submit to DAO voting
   public async submitToDAOVoting(mediaHash: string, question: string): Promise<string> {
     if (!this.isConnected) {

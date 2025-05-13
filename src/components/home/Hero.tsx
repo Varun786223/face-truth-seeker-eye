@@ -9,10 +9,10 @@ export function Hero() {
       <div className="container relative z-10">
         <div className="mx-auto max-w-3xl text-center">
           <h1 className="mb-6 text-3xl font-bold leading-tight sm:text-5xl md:text-6xl">
-            <span className="gradient-text">Detect Deepfakes</span> and Protect Digital Truth
+            <span className="gradient-text">DeepSentinel</span> - Detect All Types of AI Fraud
           </h1>
           <p className="mb-8 text-lg text-muted-foreground md:text-xl">
-            Our AI-powered tools help you identify manipulated media, detect face swaps, and analyze suspicious content with precision and accuracy.
+            Our advanced AI tools help you identify manipulated media, detect synthetic content, and analyze suspicious data across multiple formats with precision and accuracy.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Button asChild size="lg" className="rounded-full">

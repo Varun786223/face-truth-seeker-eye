@@ -9,7 +9,7 @@ import { FileUpload } from "@/components/ui/file-upload";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Database, Check, Dna, Shield, Brain, Flask, CloudLightning, Microscope, FileCode, FileSearch, AlertTriangle, Video, FileCheck, Rocket, Headphones, User, Code, Network, Eye } from "lucide-react";
+import { Database, Check, Dna, Shield, Brain, FileCode, CloudLightning, Microscope, FileSearch, AlertTriangle, Video, FileCheck, Rocket, Headphones, User, Network, Eye } from "lucide-react";
 import { toast } from "sonner";
 import blockchainService from "@/services/BlockchainService";
 
@@ -31,6 +31,7 @@ export function DAOPanel() {
   const [proposalDescription, setProposalDescription] = useState("");
   const [mediaHash, setMediaHash] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isGeneratingHash, setIsGeneratingHash] = useState(false);
   const [proposalId, setProposalId] = useState<string | null>(null);
   const [currentTab, setCurrentTab] = useState("submit");
   const [selectedProposal, setSelectedProposal] = useState<FeatureProposal | null>(null);
@@ -74,7 +75,7 @@ export function DAOPanel() {
       problem: "Identify AI-generated scent formulas",
       revenue: "Per-test pricing for perfume/food industries",
       category: "Consumer",
-      icon: <Flask className="h-4 w-4" />,
+      icon: <Eye className="h-4 w-4" />,
       votes: 8
     },
     {
@@ -204,7 +205,7 @@ export function DAOPanel() {
       problem: "Find malicious synthetic code",
       revenue: "DevTools API integration",
       category: "Software",
-      icon: <Code className="h-4 w-4" />,
+      icon: <FileCode className="h-4 w-4" />,
       votes: 29
     },
     {
@@ -262,6 +263,8 @@ export function DAOPanel() {
       return;
     }
     
+    setIsGeneratingHash(true);
+    
     try {
       // Convert file to base64 for hashing
       const reader = new FileReader();
@@ -277,6 +280,8 @@ export function DAOPanel() {
     } catch (error) {
       console.error("Error generating hash:", error);
       toast.error("Failed to generate media hash");
+    } finally {
+      setIsGeneratingHash(false);
     }
   };
   
@@ -300,10 +305,10 @@ export function DAOPanel() {
     
     try {
       // Store hash on blockchain
-      const result = await blockchainService.createDAOProposal(proposalTitle, proposalDescription, mediaHash);
+      const result = await blockchainService.submitToDAOVoting(mediaHash, proposalTitle);
       
-      if (result.success && result.proposalId) {
-        setProposalId(result.proposalId);
+      if (result) {
+        setProposalId(result);
         toast.success("Proposal submitted successfully");
         setCurrentTab("explore");
       } else {
@@ -399,10 +404,10 @@ export function DAOPanel() {
             <CardFooter className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
               <Button
                 onClick={generateHash}
-                disabled={!file}
+                disabled={!file || isGeneratingHash}
                 className="w-full sm:w-auto"
               >
-                Generate Media Hash
+                {isGeneratingHash ? "Generating..." : "Generate Media Hash"}
               </Button>
               
               <Button
