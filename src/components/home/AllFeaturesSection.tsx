@@ -1,5 +1,5 @@
-
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
@@ -169,6 +169,11 @@ export function AllFeaturesSection() {
     }, 3000);
   };
   
+  // Handle feature selection
+  const handleFeatureClick = (feature: Feature) => {
+    setSelectedFeature(feature);
+  };
+  
   return (
     <section className="py-16 bg-gradient-to-b from-muted/20 to-background" id="all-features">
       <div className="container">
@@ -288,7 +293,7 @@ export function AllFeaturesSection() {
                                           selectedFeature?.id === feature.id ? "border-primary ring-1 ring-primary/30" : "border-muted",
                                           favoriteFeatures.includes(feature.id) && "bg-primary/5"
                                         )}
-                                        onClick={() => setSelectedFeature(feature)}
+                                        onClick={() => handleFeatureClick(feature)}
                                       >
                                         <div className="flex items-start justify-between">
                                           <div className="flex gap-3">
@@ -421,7 +426,7 @@ export function AllFeaturesSection() {
                         </div>
                       )}
                     </CardContent>
-                    <CardFooter>
+                    <CardFooter className="flex flex-col gap-2">
                       <Button 
                         className="w-full"
                         disabled={!selectedFeature || uploadedFiles.length === 0 || isAnalyzing}
@@ -439,6 +444,19 @@ export function AllFeaturesSection() {
                           </>
                         )}
                       </Button>
+                      
+                      {selectedFeature && (
+                        <Button 
+                          variant="outline" 
+                          className="w-full" 
+                          asChild
+                        >
+                          <Link to={`/feature/${selectedFeature.id}`}>
+                            Go to Feature Page
+                            <ArrowRight className="ml-2 h-4 w-4" />
+                          </Link>
+                        </Button>
+                      )}
                     </CardFooter>
                   </Card>
                 </div>
@@ -454,10 +472,10 @@ export function AllFeaturesSection() {
             variant="outline" 
             className="group"
           >
-            <a href="/resources">
+            <Link to="/resources">
               Learn more about our analysis technology
               <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </a>
+            </Link>
           </Button>
         </div>
       </div>
@@ -506,7 +524,7 @@ export function AllFeaturesSection() {
                   Close
                 </Button>
                 <Button asChild>
-                  <a href={selectedFeature.link}>Try This Feature</a>
+                  <Link to={`/feature/${selectedFeature.id}`}>Try This Feature</Link>
                 </Button>
               </div>
             </div>

@@ -1,5 +1,6 @@
 
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
@@ -77,10 +78,10 @@ export function FeatureCategories() {
                       asChild 
                       className="w-full mt-2 group"
                     >
-                      <a href={feature.link}>
+                      <Link to={`/feature/${feature.id}`}>
                         Try this feature
                         <ArrowRight className="ml-2 h-3 w-3 transition-transform group-hover:translate-x-1" />
-                      </a>
+                      </Link>
                     </Button>
                   </div>
                 ))}
@@ -88,7 +89,7 @@ export function FeatureCategories() {
               
               <div className="flex justify-center mt-8">
                 <Button asChild variant="default">
-                  <a href="#all-features">See All {category.replace("-", " ")} Features</a>
+                  <Link to="#all-features">See All {category.replace("-", " ")} Features</Link>
                 </Button>
               </div>
             </TabsContent>
@@ -97,10 +98,10 @@ export function FeatureCategories() {
         
         <div className="flex justify-center mt-12">
           <Button size="lg" asChild className="gap-2">
-            <a href="/settings">
+            <Link to="/settings">
               <Shield className="h-4 w-4" />
               Configure Analysis Settings
-            </a>
+            </Link>
           </Button>
         </div>
       </div>

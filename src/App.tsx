@@ -4,6 +4,8 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+// Pages
 import Index from "./pages/Index";
 import ImageAnalysis from "./pages/ImageAnalysis";
 import VideoAnalysis from "./pages/VideoAnalysis";
@@ -13,6 +15,7 @@ import Report from "./pages/Report";
 import Resources from "./pages/Resources";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
+import FeaturePage from "./pages/FeaturePage";
 
 const queryClient = new QueryClient();
 
@@ -31,6 +34,7 @@ const App = () => (
           <Route path="/report" element={<Report />} />
           <Route path="/resources" element={<Resources />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/feature/:id" element={<FeaturePage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

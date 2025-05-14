@@ -53,7 +53,7 @@ export function Navbar() {
       <div className="container flex h-16 items-center">
         <div className="flex w-full justify-between items-center">
           <Link to="/" className="flex items-center gap-2">
-            <span className="text-2xl font-bold">DeepSentinel</span>
+            <span className="text-2xl font-bold">SentinelAI</span>
           </Link>
           <nav className="hidden md:flex gap-6 ml-10">
             {navItems.map((item) => (
