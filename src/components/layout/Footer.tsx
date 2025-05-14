@@ -1,5 +1,6 @@
 
 import { Link } from "react-router-dom";
+import { Shield } from "lucide-react";
 
 export function Footer() {
   return (
@@ -7,14 +8,17 @@ export function Footer() {
       <div className="container py-8 md:py-12">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           <div className="space-y-4">
-            <h3 className="text-lg font-bold">DeepSentinel</h3>
+            <div className="flex items-center gap-2">
+              <Shield className="h-5 w-5 text-primary" />
+              <h3 className="text-lg font-bold">DeepSentinel</h3>
+            </div>
             <p className="text-sm text-muted-foreground">
-              An AI-powered tool to detect and analyze all types of AI fraud including deepfakes, synthetic content, and manipulated data.
+              An AI-powered platform to detect and verify all types of synthetic content including AI-generated media, manipulated content, and digital fraud.
             </p>
           </div>
           
           <div>
-            <h4 className="mb-4 text-sm font-semibold">Tools</h4>
+            <h4 className="mb-4 text-sm font-semibold">Analysis Tools</h4>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link to="/image-analysis" className="text-muted-foreground hover:text-foreground">
@@ -39,38 +43,38 @@ export function Footer() {
             <ul className="space-y-2 text-sm">
               <li>
                 <Link to="/resources" className="text-muted-foreground hover:text-foreground">
-                  Learn About AI Fraud
+                  Learn About Synthetic Media
                 </Link>
               </li>
               <li>
                 <Link to="/report" className="text-muted-foreground hover:text-foreground">
-                  Report Synthetic Content
+                  Report Fraudulent Content
                 </Link>
               </li>
               <li>
-                <Link to="/faq" className="text-muted-foreground hover:text-foreground">
-                  FAQ
+                <Link to="/blockchain" className="text-muted-foreground hover:text-foreground">
+                  Blockchain Verification
                 </Link>
               </li>
             </ul>
           </div>
           
           <div>
-            <h4 className="mb-4 text-sm font-semibold">About</h4>
+            <h4 className="mb-4 text-sm font-semibold">Solutions</h4>
             <ul className="space-y-2 text-sm">
               <li>
                 <a href="#" className="text-muted-foreground hover:text-foreground">
-                  Privacy Policy
+                  Enterprise Solutions
                 </a>
               </li>
               <li>
                 <a href="#" className="text-muted-foreground hover:text-foreground">
-                  Terms of Service
+                  Media Certification
                 </a>
               </li>
               <li>
                 <a href="#" className="text-muted-foreground hover:text-foreground">
-                  Contact
+                  API Access
                 </a>
               </li>
             </ul>

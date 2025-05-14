@@ -1,23 +1,27 @@
 
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { FileText, Shield, Award } from "lucide-react";
 
 export function HowItWorks() {
   const steps = [
     {
       number: "01",
       title: "Upload or Capture",
-      description: "Upload your image or video, or use your webcam to capture live footage for analysis."
+      description: "Upload your image, video, audio, or document — or use your webcam to capture live footage for analysis.",
+      icon: <FileText className="h-5 w-5 text-primary" />
     },
     {
       number: "02", 
       title: "AI Analysis",
-      description: "Our advanced AI model scans for inconsistencies, manipulation traces, and deepfake indicators."
+      description: "Our advanced AI models scan for multiple forms of manipulation, synthetic content generation, and fraud indicators.",
+      icon: <Shield className="h-5 w-5 text-primary" />
     },
     {
       number: "03",
-      title: "Get Results",
-      description: "Receive a detailed report highlighting potential manipulated areas with confidence scores."
+      title: "Get Results & Verification",
+      description: "Receive a detailed report with confidence scores, optional blockchain certification, and tamper-proof verification.",
+      icon: <Award className="h-5 w-5 text-primary" />
     }
   ];
 
@@ -26,10 +30,10 @@ export function HowItWorks() {
       <div className="container">
         <div className="mx-auto max-w-2xl text-center mb-12 md:mb-16">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            How It Works
+            How DeepSentinel Works
           </h2>
           <p className="mt-4 text-muted-foreground">
-            Our deepfake detection process is simple, fast, and accurate.
+            Our digital trust platform is simple to use, yet powered by sophisticated AI technology.
           </p>
         </div>
         
@@ -37,7 +41,7 @@ export function HowItWorks() {
           {steps.map((step, i) => (
             <div key={i} className="relative">
               <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                <span className="text-lg font-bold">{step.number}</span>
+                {step.icon}
               </div>
               <h3 className="text-xl font-bold">{step.title}</h3>
               <p className="mt-2 text-muted-foreground">{step.description}</p>

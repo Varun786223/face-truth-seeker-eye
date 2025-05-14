@@ -9,24 +9,24 @@ import {
 export function FAQ() {
   const faqs = [
     {
-      question: "What are deepfakes?",
-      answer: "Deepfakes are synthetic media where a person's likeness is replaced with someone else's using artificial intelligence. This technology can create convincing images, videos, or audio recordings that make people appear to say or do things they never did."
+      question: "What is synthetic media?",
+      answer: "Synthetic media refers to any content (images, videos, audio, text, etc.) that has been created or manipulated using artificial intelligence. This includes AI-generated faces, voice cloning, manipulated videos, and computer-generated text that mimics human writing."
     },
     {
-      question: "How accurate is your deepfake detection?",
-      answer: "Our detection technology typically achieves 85-95% accuracy, depending on the quality of the deepfake. The system is continually improving through machine learning and regular updates to counter the latest deepfake techniques."
+      question: "How accurate is DeepSentinel's detection technology?",
+      answer: "Our detection technology typically achieves 85-95% accuracy, depending on the quality and type of synthetic media. The system continuously improves through machine learning and regular updates to counter the latest synthetic media generation techniques."
     },
     {
-      question: "Can your tool detect all types of deepfakes?",
-      answer: "Our tools can detect many common forms of deepfakes, including face swaps, facial reenactments, and synthesized audio. However, as deepfake technology evolves, some sophisticated manipulations may be harder to detect. We regularly update our algorithms to improve detection capabilities."
+      question: "Can DeepSentinel detect all types of AI-generated content?",
+      answer: "DeepSentinel can detect many forms of synthetic media, including image manipulations, AI-generated faces, voice clones, and synthetic text. As AI technology evolves, we regularly update our algorithms to improve detection capabilities across multiple content formats."
     },
     {
-      question: "How does the deepfake detection process work?",
-      answer: "Our detection process analyzes visual and audio inconsistencies that are typically present in deepfakes. This includes examining facial features, eye blinking patterns, skin texture, facial boundaries, and voice patterns. The AI looks for subtle artifacts that human eyes might miss."
+      question: "How does the blockchain verification process work?",
+      answer: "Our blockchain verification creates a cryptographic hash of original content and stores it on a decentralized ledger. This provides a tamper-proof timestamp that proves when content was created and verifies it hasn't been modified, allowing creators to prove authenticity of their work."
     },
     {
       question: "Is my uploaded content stored or shared?",
-      answer: "We prioritize your privacy. Uploaded content is processed only for the purpose of analysis and is not permanently stored on our servers. All uploads are automatically deleted after analysis is complete, typically within 24 hours."
+      answer: "We prioritize your privacy. Uploaded content is processed only for the purpose of analysis and is not permanently stored on our servers unless you specifically opt into blockchain certification. All standard uploads are automatically deleted after analysis is complete."
     }
   ];
 
@@ -38,7 +38,7 @@ export function FAQ() {
             Frequently Asked Questions
           </h2>
           <p className="mt-4 text-muted-foreground">
-            Learn more about deepfakes and our detection technology.
+            Learn more about synthetic media and our detection technology.
           </p>
         </div>
         

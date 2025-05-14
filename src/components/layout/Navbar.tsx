@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, X } from "lucide-react";
+import { Menu, Shield } from "lucide-react";
 
 interface NavItems {
   title: string;
@@ -53,7 +53,8 @@ export function Navbar() {
       <div className="container flex h-16 items-center">
         <div className="flex w-full justify-between items-center">
           <Link to="/" className="flex items-center gap-2">
-            <span className="text-2xl font-bold">SentinelAI</span>
+            <Shield className="h-6 w-6 text-primary" />
+            <span className="text-2xl font-bold">DeepSentinel</span>
           </Link>
           <nav className="hidden md:flex gap-6 ml-10">
             {navItems.map((item) => (
