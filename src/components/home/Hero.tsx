@@ -16,19 +16,26 @@ export function Hero() {
             <span className="gradient-text">DeepSentinel</span> - Your Digital Reality Scanner
           </h1>
           <p className="mb-8 text-lg text-muted-foreground md:text-xl">
-            Our advanced AI platform detects, verifies, and protects against all forms of AI-generated synthetic media and digital fraud across multiple formats.
+            Our next-generation digital trust platform detects, verifies, and protects against all forms of AI-generated synthetic media and digital fraud across multiple formats.
           </p>
           
+          <div className="bg-muted/30 p-6 rounded-lg mb-8 max-w-2xl mx-auto">
+            <h3 className="font-semibold text-lg mb-2">About DeepSentinel</h3>
+            <p className="text-muted-foreground">
+              DeepSentinel serves as a "Reality Scanner" for individuals, businesses, and governments, ensuring digital authenticity in an era of AI-driven deception. We scan diverse media formats—images, videos, audio, documents, and more—to identify AI manipulation and protect you from synthetic media fraud.
+            </p>
+          </div>
+          
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 my-8 max-w-2xl mx-auto">
-            <div className="bg-muted/40 rounded-lg p-4 flex flex-col items-center">
+            <div className="bg-muted/40 rounded-lg p-4 flex flex-col items-center hover:bg-primary/10 transition-colors">
               <Image className="h-8 w-8 mb-2 text-primary" />
               <span className="text-sm font-medium">Visual Analysis</span>
             </div>
-            <div className="bg-muted/40 rounded-lg p-4 flex flex-col items-center">
+            <div className="bg-muted/40 rounded-lg p-4 flex flex-col items-center hover:bg-primary/10 transition-colors">
               <Headphones className="h-8 w-8 mb-2 text-primary" />
               <span className="text-sm font-medium">Audio Verification</span>
             </div>
-            <div className="bg-muted/40 rounded-lg p-4 flex flex-col items-center">
+            <div className="bg-muted/40 rounded-lg p-4 flex flex-col items-center hover:bg-primary/10 transition-colors">
               <FileText className="h-8 w-8 mb-2 text-primary" />
               <span className="text-sm font-medium">Document Scanning</span>
             </div>

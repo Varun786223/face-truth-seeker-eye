@@ -32,6 +32,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { SmartFileAnalyzer } from "@/components/analysis/SmartFileAnalyzer";
 
 export function AllFeaturesSection() {
   const [activeCategory, setActiveCategory] = useState<string>("detection");
@@ -42,6 +43,7 @@ export function AllFeaturesSection() {
   const [favoriteFeatures, setFavoriteFeatures] = useState<string[]>([]);
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
   const [sortOrder, setSortOrder] = useState<"default" | "az" | "popular">("default");
+  const [showSmartAnalyzer, setShowSmartAnalyzer] = useState(false);
   const isMobile = useIsMobile();
   
   // Group features by category
@@ -141,6 +143,9 @@ export function AllFeaturesSection() {
     
     if (files.length > 0) {
       toast.success(`${files.length} file(s) uploaded successfully`);
+      setShowSmartAnalyzer(true);
+    } else {
+      setShowSmartAnalyzer(false);
     }
   };
   
@@ -172,6 +177,15 @@ export function AllFeaturesSection() {
   // Handle feature selection
   const handleFeatureClick = (feature: Feature) => {
     setSelectedFeature(feature);
+  };
+  
+  // Handle feature selection for the SmartFileAnalyzer
+  const handleSmartFeatureSuggestion = (featureId: string) => {
+    const suggestedFeature = features.find(feature => feature.id === featureId);
+    if (suggestedFeature) {
+      setSelectedFeature(suggestedFeature);
+      toast.success(`Selected: ${suggestedFeature.title}`);
+    }
   };
   
   return (
@@ -395,14 +409,18 @@ export function AllFeaturesSection() {
                             </p>
                           </div>
                           
-                          <FileUpload 
-                            accept="*/*" 
-                            multiple={true}
-                            onChange={handleFileUpload}
-                            className="mt-4" 
-                          />
+                          {!showSmartAnalyzer ? (
+                            <FileUpload 
+                              accept="*/*" 
+                              multiple={true}
+                              onChange={handleFileUpload}
+                              className="mt-4" 
+                            />
+                          ) : (
+                            <SmartFileAnalyzer onFeatureSuggestion={handleSmartFeatureSuggestion} />
+                          )}
                           
-                          {uploadedFiles.length > 0 && (
+                          {uploadedFiles.length > 0 && !showSmartAnalyzer && (
                             <div className="bg-muted/20 p-3 rounded-md">
                               <div className="flex items-center justify-between mb-1">
                                 <span className="text-sm font-medium">Files Ready</span>

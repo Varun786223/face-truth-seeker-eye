@@ -6,6 +6,7 @@ import { FeatureCategories } from "@/components/home/FeatureCategories";
 import { AllFeaturesSection } from "@/components/home/AllFeaturesSection";
 import { HowItWorks } from "@/components/home/HowItWorks";
 import { FAQ } from "@/components/home/FAQ";
+import { FeatureList } from "@/components/home/FeatureList";
 
 const Index = () => {
   return (
@@ -17,6 +18,9 @@ const Index = () => {
         
         {/* Main Feature Categories */}
         <FeatureCategories />
+        
+        {/* Complete Feature List */}
+        <FeatureList />
         
         {/* All Features Section with Drag and Drop */}
         <AllFeaturesSection />
