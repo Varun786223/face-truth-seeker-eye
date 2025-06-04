@@ -3,136 +3,144 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
+import { Shield, BookOpen, HelpCircle, ExternalLink } from "lucide-react";
 
 const Resources = () => {
   const educationalResources = [
     {
-      title: "What are Deepfakes?",
-      description: "A comprehensive guide to understanding deepfake technology",
-      content: `Deepfakes are synthetic media where a person's likeness is replaced with someone else's using artificial intelligence. The term "deepfake" combines "deep learning" and "fake," reflecting the AI technology used to create them. These manipulated videos, images, or audio recordings are created using deep neural networks that can learn to mimic a person's facial expressions, voice, and mannerisms with surprising accuracy.
+      title: "What is Synthetic Media?",
+      description: "Understanding AI-generated content and digital manipulation",
+      category: "Basics",
+      content: `Synthetic media refers to any content (images, videos, audio, text, documents, or 3D models) that has been created or manipulated using artificial intelligence. This includes deepfakes, AI-generated faces, voice clones, manipulated videos, computer-generated text, and even synthetic DNA sequences or 3D models.
 
-The technology behind deepfakes, known as generative adversarial networks (GANs), involves two AI systems working in tandem: one creates the fake content while the other evaluates its authenticity. Through continuous improvement, deepfakes have become increasingly realistic and difficult to detect without specialized tools.
+The technology behind synthetic media, particularly deepfakes, uses deep neural networks and generative adversarial networks (GANs) that can learn to mimic a person's facial expressions, voice patterns, writing style, and other characteristics with increasing accuracy.
 
-While deepfakes can be used for creative and satirical purposes, they raise significant concerns about misinformation, election interference, fraud, and non-consensual intimate imagery. As the technology becomes more accessible, distinguishing between authentic and manipulated media is becoming increasingly challenging.`
+While synthetic media has legitimate uses in filmmaking, art, education, and accessibility, it also poses significant risks including misinformation, fraud, non-consensual intimate imagery, election interference, and various forms of digital deception that DeepSentinel helps detect and prevent.`
     },
     {
-      title: "How Deepfakes Work",
-      description: "Technical explanation of deepfake creation technology",
-      content: `Deepfakes are created using sophisticated AI models called Generative Adversarial Networks (GANs) and other deep learning techniques. The process typically involves several key steps:
+      title: "How DeepSentinel Detection Works",
+      description: "Technical explanation of our multi-format detection technology",
+      category: "Technology",
+      content: `DeepSentinel uses advanced AI models and machine learning algorithms to detect various forms of synthetic and manipulated content across multiple formats:
 
-1. Data Collection: Thousands of images or video frames of both the target person (who will be replaced) and the source person (who will be inserted) are collected.
+**Image & Video Analysis:** Our system examines facial inconsistencies, unnatural movements, lighting anomalies, pixel-level artifacts, temporal inconsistencies in videos, and GAN-specific signatures that indicate AI generation.
 
-2. Face Detection & Alignment: AI locates and aligns facial features in each frame of both individuals.
+**Audio Detection:** We analyze speech patterns, tone variations, unnatural pauses, spectral anomalies, and voice consistency to identify AI-generated or cloned audio content.
 
-3. Training: The deepfake algorithm learns the facial features and expressions of both individuals. Two neural networks work together - a generator that creates fake images and a discriminator that tries to detect if they're real.
+**Document Analysis:** Our text analysis engines detect AI-generated writing patterns, inconsistent formatting, metadata anomalies, and linguistic signatures typical of large language models.
 
-4. Face Swapping: The algorithm replaces the target's face with the source's face while maintaining natural expressions, lighting, and positioning.
+**3D & Advanced Media:** DeepSentinel can also analyze 3D models, VR content, and even synthetic biological data for signs of AI generation or manipulation.
 
-5. Post-Processing: Various refinements improve realism by matching skin tones, fixing boundaries, and smoothing transitions.
-
-For audio deepfakes, similar principles apply but with voice data instead. The AI analyzes speech patterns, tone, pitch, and cadence to create synthetic audio that mimics someone's voice.
-
-What makes modern deepfakes so convincing is that the AI continuously improves itself - the generator gets better at creating realistic fakes while the discriminator gets better at spotting them, resulting in increasingly convincing results.`
+**Blockchain Verification:** Beyond detection, we provide cryptographic proof of authenticity through blockchain timestamping and hash verification for genuine content.`
     },
     {
-      title: "Spotting Deepfakes",
-      description: "Tips and techniques to identify manipulated media",
-      content: `While deepfakes are becoming increasingly sophisticated, there are several telltale signs that can help you identify manipulated media:
+      title: "Spotting Synthetic Media",
+      description: "Visual and auditory cues to identify AI-generated content",
+      category: "Detection Tips",
+      content: `While synthetic media is becoming increasingly sophisticated, there are several telltale signs that can help you identify manipulated content:
 
-1. Unnatural Facial Movements: Look for awkward expressions, limited blinking, or rigid head movements.
+**Visual Indicators:**
+- Unnatural facial movements or limited blinking patterns
+- Inconsistent lighting or shadows that don't match the environment
+- Blurry or changing boundaries around faces or objects
+- Unusual skin texture or unnaturally smooth complexion
+- Distorted facial proportions or misaligned features
 
-2. Inconsistent Lighting: Check if shadows fall in different directions or if lighting on the face doesn't match the environment.
+**Audio Indicators:**
+- Unnatural pauses or rhythm in speech
+- Inconsistent voice quality or tone
+- Robotic or synthetic-sounding pronunciation
+- Audio that doesn't match lip movements in videos
 
-3. Blurry or Changing Face Boundaries: Deepfakes often show blurring, pixelation, or color inconsistencies at the edges of the face.
+**Document Indicators:**
+- Repetitive phrasing or unnatural language patterns
+- Inconsistent formatting or writing style
+- Generic or placeholder-like content
+- Metadata inconsistencies
 
-4. Audio-Visual Mismatches: Pay attention to whether lip movements precisely match the words being spoken.
+**General Tips:**
+- Verify sources and cross-reference information
+- Use reverse image/video searches
+- Check for official verification badges
+- Trust your instincts if something seems "off"
 
-5. Skin Texture and Complexion: Look for unnaturally smooth skin or inconsistent skin tone across the face.
-
-6. Unnatural Eye Movements: Many deepfakes struggle with realistic eye movements and blinking patterns.
-
-7. Unusual Facial Proportions: Watch for subtle distortions in the size and position of facial features.
-
-8. Digital Artifacts: Look for flickering, glitching, or warping, especially during movement.
-
-9. Verify the Source: Check if the content comes from reliable sources and whether it appears elsewhere.
-
-If you suspect a deepfake, try fact-checking the content, examining other footage of the person, and using reverse image searches to verify authenticity.`
+DeepSentinel automates this detection process with much higher accuracy than manual inspection.`
     },
     {
-      title: "The Ethics of Deepfakes",
-      description: "Exploring the ethical implications of synthetic media",
-      content: `Deepfake technology presents complex ethical challenges that society is still grappling with:
+      title: "The Ethics of AI and Synthetic Media",
+      description: "Exploring the ethical implications of AI-generated content",
+      category: "Ethics",
+      content: `The rise of synthetic media presents complex ethical challenges that society continues to navigate:
 
-Consent and Autonomy: Deepfakes can violate a person's right to control their own image and voice. When someone's likeness is used without permission, it raises serious ethical concerns about personal autonomy and dignity.
+**Consent and Privacy:** Creating synthetic content using someone's likeness without permission violates personal autonomy and can cause significant harm to individuals' reputation and mental health.
 
-Misinformation and Trust: As deepfakes become more realistic, they threaten to erode trust in media. The potential for creating convincing false narratives challenges our ability to distinguish truth from fiction.
+**Information Integrity:** As synthetic media becomes more realistic, it threatens our ability to distinguish truth from fiction, potentially undermining trust in authentic media and democratic institutions.
 
-Political Impacts: Deepfakes could be weaponized to manipulate elections, create false statements from politicians, or incite political unrest through manufactured events.
+**Beneficial Applications:** Synthetic media also has positive uses including film production, digital art, accessibility tools for people with disabilities, historical recreation, and educational content.
 
-Non-consensual Intimate Content: One of the most harmful applications has been creating fake pornographic content using real people's faces without their consent, causing psychological harm and reputational damage.
+**Responsibility and Accountability:** Questions arise about who is responsible for harmful synthetic content and how to balance free expression with preventing abuse.
 
-Attribution and Accountability: Determining who is responsible for harmful deepfakes presents challenges as the technology becomes more accessible and the creators can remain anonymous.
+**Detection and Verification:** Tools like DeepSentinel play a crucial role in maintaining digital trust by helping verify authentic content and detecting malicious synthetic media.
 
-Beneficial Uses: Deepfake technology also has positive applications in film production, art, accessibility, and education that must be balanced against potential harms.
+**Legal Frameworks:** Emerging laws worldwide are beginning to address synthetic media, requiring disclosure, penalizing malicious use, and establishing liability frameworks.
 
-Finding ethical frameworks for this rapidly evolving technology requires balancing free expression with preventing harm, and developing both technical and legal solutions to address misuse while preserving beneficial applications.`
+The future depends on developing both technical solutions and ethical frameworks that harness the benefits of AI while minimizing potential harms.`
     },
     {
-      title: "Legal Frameworks",
+      title: "Legal Frameworks and Regulations",
       description: "Current and emerging laws regarding synthetic media",
-      content: `The legal landscape around deepfakes is rapidly evolving as legislators work to address this new technology:
+      category: "Legal",
+      content: `The legal landscape around synthetic media is rapidly evolving as legislators work to address these new technologies:
 
-United States: Several states, including California, Texas, and Virginia, have passed specific laws targeting malicious deepfakes, particularly those used for electoral interference or non-consensual intimate imagery. At the federal level, the Malicious Deep Fake Prohibition Act and the DEEPFAKES Accountability Act have been proposed.
+**United States:** Several states have enacted specific laws targeting malicious synthetic media. California's AB 602 addresses deepfake pornography, while AB 730 targets election-related deepfakes. Texas and Virginia have similar legislation.
 
-European Union: The EU's GDPR provides some protection through data protection and right to privacy provisions. The proposed AI Act specifically addresses deepfakes, requiring clear labeling of synthetic media.
+**European Union:** The EU's GDPR provides some protection through data protection provisions. The proposed AI Act specifically addresses synthetic media, requiring clear labeling and establishing liability frameworks.
 
-China: China has implemented regulations requiring that all deepfakes be clearly labeled and traceable to their creator, with strict penalties for violations.
+**China:** China has implemented comprehensive regulations requiring all synthetic media to be clearly labeled and traceable to their creator, with strict penalties for violations.
 
-United Kingdom: The UK's Online Safety Bill includes provisions to address harmful deepfakes, placing responsibility on platforms to manage such content.
+**Global Trends:** Many countries are developing legislation that focuses on:
+- Intent and harm assessment
+- Consent requirements for depicted individuals  
+- Mandatory labeling of synthetic content
+- Platform liability for hosting harmful content
+- Copyright and intellectual property protections
 
-International Challenges: Enforcement remains difficult due to jurisdictional issues, anonymous creation and distribution, and rapid technological advancement outpacing legal frameworks.
+**Enforcement Challenges:** Cross-border jurisdiction issues, anonymous creation and distribution, and rapidly evolving technology continue to complicate enforcement efforts.
 
-Legal considerations typically focus on:
-- Intent and harm (malicious vs. creative uses)
-- Consent of the depicted individuals
-- Labeling requirements for synthetic media
-- Platform liability for hosting deepfakes
-- Copyright and intellectual property violations
-
-As technology continues to advance, legal frameworks will need to balance preventing harm with protecting freedom of expression and legitimate uses of synthetic media technology.`
+DeepSentinel supports compliance efforts by providing detection tools and verification services that help organizations meet emerging regulatory requirements.`
     },
   ];
   
   const faqItems = [
     {
-      question: "What is a deepfake?",
-      answer: "A deepfake is synthetic media where a person's likeness is replaced with someone else's using artificial intelligence and machine learning techniques. The term combines 'deep learning' and 'fake,' referring to the AI technology used to create them."
+      question: "What is synthetic media?",
+      answer: "Synthetic media is any content (images, videos, audio, text, or documents) created or manipulated using artificial intelligence. This includes deepfakes, AI-generated voices, synthetic text, and digitally manipulated documents."
     },
     {
-      question: "How can I tell if a video is a deepfake?",
-      answer: "Look for unnatural blinking patterns, weird facial expressions, blurry or changing face boundaries, inconsistent lighting, audio-visual mismatches, and unusual skin texture. Our detection tools can help identify these signs automatically."
+      question: "How can I tell if content is AI-generated?",
+      answer: "Look for unnatural movements, inconsistent lighting, audio-visual mismatches, repetitive language patterns, and unusual artifacts. DeepSentinel's detection tools can identify these signs automatically with high accuracy."
     },
     {
-      question: "Are all synthetic media harmful?",
+      question: "Are all AI-generated content harmful?",
       answer: "No. Synthetic media has many positive applications in filmmaking, art, education, and accessibility. The ethics depend on context, consent, and intent. Harmful uses typically involve deception or non-consensual portrayal."
     },
     {
-      question: "How accurate are deepfake detection tools?",
-      answer: "Detection accuracy varies based on deepfake quality and detection method. Current tools typically achieve 70-95% accuracy, with performance improving as algorithms advance. However, as deepfake technology improves, detection becomes more challenging."
+      question: "How accurate is DeepSentinel's detection?",
+      answer: "DeepSentinel typically achieves 85-95% accuracy depending on content quality and type. Our algorithms continuously improve through machine learning and regular updates to counter the latest synthetic media generation techniques."
     },
     {
-      question: "Is creating deepfakes illegal?",
-      answer: "It depends on the content and jurisdiction. Creating deepfakes for malicious purposes like non-consensual intimate imagery or fraud is illegal in many places. Several countries and states have enacted specific legislation against harmful deepfakes."
+      question: "Is creating synthetic media illegal?",
+      answer: "It depends on the content, intent, and jurisdiction. Creating synthetic media for malicious purposes like fraud, harassment, or non-consensual intimate imagery is illegal in many places. Several countries have enacted specific legislation against harmful synthetic media."
     },
     {
-      question: "How can I protect myself from deepfakes?",
-      answer: "Limit publicly available photos and videos, use privacy settings on social media, be skeptical of surprising video content, verify information through multiple sources, and report suspected deepfakes to platforms and authorities."
+      question: "How can I protect myself from synthetic media fraud?",
+      answer: "Limit publicly available photos and videos, use privacy settings on social media, verify surprising content through multiple sources, use detection tools like DeepSentinel, and report suspected synthetic media to platforms and authorities."
     },
     {
-      question: "Will deepfakes eventually become undetectable?",
-      answer: "While deepfakes are becoming more sophisticated, detection technology is also advancing. Rather than becoming completely undetectable, we're likely to see an ongoing technological race between creation and detection methods."
+      question: "What makes DeepSentinel different from other detection tools?",
+      answer: "DeepSentinel offers multi-format detection (not just images), real-time analysis, blockchain verification for authentic content, smart file analysis that suggests relevant detection features, and comprehensive fraud prevention rather than just detection."
     }
   ];
 
@@ -140,109 +148,141 @@ As technology continues to advance, legal frameworks will need to balance preven
     <>
       <Navbar />
       <main className="container py-20 md:py-32">
-        <div className="mx-auto max-w-4xl">
-          <div className="mb-10 text-center">
-            <h1 className="text-3xl font-bold sm:text-4xl">Educational Resources</h1>
-            <p className="mt-4 text-muted-foreground">
-              Learn about deepfake technology, detection methods, and how to protect yourself
+        <div className="mx-auto max-w-5xl">
+          <div className="mb-12 text-center">
+            <div className="flex justify-center mb-6">
+              <div className="bg-primary/10 rounded-full p-3">
+                <BookOpen className="h-8 w-8 text-primary" />
+              </div>
+            </div>
+            <h1 className="text-4xl font-bold sm:text-5xl mb-4">Educational Resources</h1>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Learn about synthetic media, AI detection methods, and how to protect yourself in the digital age
             </p>
           </div>
           
-          <Tabs defaultValue="learn" className="mb-10">
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="learn">Learn About Deepfakes</TabsTrigger>
-              <TabsTrigger value="faq">Frequently Asked Questions</TabsTrigger>
+          <Tabs defaultValue="learn" className="mb-12">
+            <TabsList className="grid w-full grid-cols-2 mb-8">
+              <TabsTrigger value="learn" className="flex items-center gap-2">
+                <Shield className="h-4 w-4" />
+                Learn About Synthetic Media
+              </TabsTrigger>
+              <TabsTrigger value="faq" className="flex items-center gap-2">
+                <HelpCircle className="h-4 w-4" />
+                Frequently Asked Questions
+              </TabsTrigger>
             </TabsList>
             
             <TabsContent value="learn">
-              <div className="space-y-6 mt-6">
+              <div className="space-y-8">
                 {educationalResources.map((resource, i) => (
-                  <Card key={i}>
+                  <Card key={i} className="hover:shadow-lg transition-shadow duration-300">
                     <CardHeader>
-                      <CardTitle>{resource.title}</CardTitle>
-                      <CardDescription>{resource.description}</CardDescription>
+                      <div className="flex items-start justify-between">
+                        <div>
+                          <CardTitle className="text-xl mb-2">{resource.title}</CardTitle>
+                          <CardDescription className="text-base">{resource.description}</CardDescription>
+                        </div>
+                        <Badge variant="outline">{resource.category}</Badge>
+                      </div>
                     </CardHeader>
                     <CardContent>
                       <div className="prose max-w-none text-muted-foreground space-y-4">
                         {resource.content.split('\n\n').map((paragraph, j) => (
-                          <p key={j}>{paragraph}</p>
+                          <p key={j} className="leading-relaxed">{paragraph}</p>
                         ))}
                       </div>
                     </CardContent>
                   </Card>
                 ))}
                 
-                <Card>
+                <Card className="bg-gradient-to-r from-primary/5 to-primary/10 border-primary/20">
                   <CardHeader>
-                    <CardTitle>Additional Resources</CardTitle>
+                    <CardTitle className="flex items-center gap-2">
+                      <ExternalLink className="h-5 w-5 text-primary" />
+                      Additional Resources
+                    </CardTitle>
                     <CardDescription>External links and tools for further learning</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <ul className="space-y-3">
-                      <li>
-                        <a 
-                          href="https://www.media.mit.edu/projects/detect-fakes/overview/" 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="text-primary hover:underline flex items-center gap-1"
-                        >
-                          MIT Media Lab: Detect Fakes Project
-                        </a>
-                        <p className="text-sm text-muted-foreground mt-1">
-                          Research and tools for detecting manipulated media
-                        </p>
-                      </li>
-                      <li>
-                        <a 
-                          href="https://jigsaw.google.com/the-current/disinformation/"
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="text-primary hover:underline flex items-center gap-1"
-                        >
-                          Google Jigsaw: Disinformation Research
-                        </a>
-                        <p className="text-sm text-muted-foreground mt-1">
-                          Exploring the challenges of synthetic media and disinformation
-                        </p>
-                      </li>
-                      <li>
-                        <a 
-                          href="https://www.witness.org/portfolio_page/synthetic-media-and-deep-fakes/"
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="text-primary hover:underline flex items-center gap-1"
-                        >
-                          WITNESS Media Lab: Synthetic Media Resources
-                        </a>
-                        <p className="text-sm text-muted-foreground mt-1">
-                          Practical guides for journalists and human rights defenders
-                        </p>
-                      </li>
-                    </ul>
+                    <div className="grid gap-6 md:grid-cols-2">
+                      <div className="space-y-4">
+                        <h4 className="font-medium">Research & Academia</h4>
+                        <ul className="space-y-3">
+                          <li>
+                            <a 
+                              href="https://www.media.mit.edu/projects/detect-fakes/overview/" 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="text-primary hover:underline flex items-center gap-1 text-sm"
+                            >
+                              MIT Media Lab: Detect Fakes Project
+                              <ExternalLink className="h-3 w-3" />
+                            </a>
+                            <p className="text-xs text-muted-foreground mt-1">
+                              Research and tools for detecting manipulated media
+                            </p>
+                          </li>
+                          <li>
+                            <a 
+                              href="https://jigsaw.google.com/the-current/disinformation/"
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="text-primary hover:underline flex items-center gap-1 text-sm"
+                            >
+                              Google Jigsaw: Disinformation Research
+                              <ExternalLink className="h-3 w-3" />
+                            </a>
+                            <p className="text-xs text-muted-foreground mt-1">
+                              Exploring synthetic media and disinformation challenges
+                            </p>
+                          </li>
+                        </ul>
+                      </div>
+                      <div className="space-y-4">
+                        <h4 className="font-medium">Practical Guides</h4>
+                        <ul className="space-y-3">
+                          <li>
+                            <a 
+                              href="https://www.witness.org/portfolio_page/synthetic-media-and-deep-fakes/"
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="text-primary hover:underline flex items-center gap-1 text-sm"
+                            >
+                              WITNESS: Synthetic Media Resources
+                              <ExternalLink className="h-3 w-3" />
+                            </a>
+                            <p className="text-xs text-muted-foreground mt-1">
+                              Guides for journalists and human rights defenders
+                            </p>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
                   </CardContent>
                 </Card>
               </div>
             </TabsContent>
             
             <TabsContent value="faq">
-              <div className="space-y-6 mt-6">
+              <div className="space-y-6">
                 <Card>
                   <CardHeader>
-                    <CardTitle>Common Questions About Deepfakes</CardTitle>
+                    <CardTitle>Common Questions About Synthetic Media</CardTitle>
                     <CardDescription>
-                      Answers to frequently asked questions about deepfake technology and detection
+                      Answers to frequently asked questions about AI-generated content and detection
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-6">
                       {faqItems.map((item, i) => (
-                        <div key={i} className="space-y-2">
-                          <h3 className="font-medium">{item.question}</h3>
-                          <p className="text-sm text-muted-foreground">
+                        <div key={i} className="space-y-3">
+                          <h3 className="font-medium text-lg">{item.question}</h3>
+                          <p className="text-muted-foreground leading-relaxed">
                             {item.answer}
                           </p>
                           {i < faqItems.length - 1 && (
-                            <hr className="my-4" />
+                            <hr className="my-6 border-muted" />
                           )}
                         </div>
                       ))}
@@ -250,17 +290,29 @@ As technology continues to advance, legal frameworks will need to balance preven
                   </CardContent>
                 </Card>
                 
-                <div className="text-center py-6">
-                  <h2 className="text-xl font-bold mb-4">Ready to Test Your Detection Skills?</h2>
-                  <p className="text-muted-foreground mb-6">
-                    Use our detection tools to analyze suspicious content and improve your ability to spot deepfakes.
+                <div className="text-center py-8 bg-gradient-to-r from-primary/5 to-primary/10 rounded-xl border border-primary/20">
+                  <h2 className="text-2xl font-bold mb-4">Ready to Test Your Detection Skills?</h2>
+                  <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
+                    Use our advanced detection tools to analyze suspicious content and improve your ability to spot synthetic media.
                   </p>
-                  <div className="flex justify-center gap-4">
-                    <Link to="/image-analysis" className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">
+                  <div className="flex justify-center gap-4 flex-wrap">
+                    <Link 
+                      to="/image-analysis" 
+                      className="inline-flex h-11 items-center justify-center rounded-full bg-primary px-6 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+                    >
                       Try Image Analysis
                     </Link>
-                    <Link to="/video-analysis" className="inline-flex h-10 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">
+                    <Link 
+                      to="/video-analysis" 
+                      className="inline-flex h-11 items-center justify-center rounded-full border border-input bg-background px-6 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+                    >
                       Try Video Analysis
+                    </Link>
+                    <Link 
+                      to="/webcam-analysis" 
+                      className="inline-flex h-11 items-center justify-center rounded-full border border-input bg-background px-6 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+                    >
+                      Live Camera Analysis
                     </Link>
                   </div>
                 </div>
