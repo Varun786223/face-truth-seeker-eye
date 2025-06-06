@@ -11,6 +11,8 @@ import { StatsSection } from "@/components/home/StatsSection";
 import { TechStackShowcase } from "@/components/home/TechStackShowcase";
 import { TrustBadges } from "@/components/home/TrustBadges";
 import { CallToActionSection } from "@/components/home/CallToActionSection";
+import { InteractiveDemoSection } from "@/components/home/InteractiveDemoSection";
+import { LiveStatsCounter } from "@/components/home/LiveStatsCounter";
 
 const Index = () => {
   return (
@@ -23,8 +25,14 @@ const Index = () => {
         {/* Trust Badges */}
         <TrustBadges />
         
+        {/* Live Statistics Counter */}
+        <LiveStatsCounter />
+        
         {/* Stats Section */}
         <StatsSection />
+        
+        {/* Interactive Demo Section */}
+        <InteractiveDemoSection />
         
         {/* Main Feature Categories */}
         <FeatureCategories />
