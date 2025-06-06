@@ -59,6 +59,36 @@
     background: linear-gradient(45deg, transparent 30%, rgba(139, 92, 246, 0.1) 50%, transparent 70%);
     animation: demo-shine 3s ease-in-out infinite;
   }
+  
+  .hero-glow {
+    animation: hero-glow 4s ease-in-out infinite;
+  }
+  
+  .testimonial-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .testimonial-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+  }
+  
+  .pricing-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .pricing-card:hover {
+    transform: translateY(-4px) scale(1.02);
+  }
+  
+  .feature-hover {
+    transition: all 0.3s ease;
+  }
+  
+  .feature-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.15);
+  }
 }
 
 @keyframes gradient {
@@ -139,6 +169,26 @@
   }
 }
 
+@keyframes hero-glow {
+  0%, 100% {
+    box-shadow: 0 0 30px rgba(139, 92, 246, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 60px rgba(139, 92, 246, 0.4);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 .animate-float {
   animation: float 3s ease-in-out infinite;
 }
@@ -155,7 +205,11 @@
   animation: pulse-slow 4s ease-in-out infinite;
 }
 
-/* Scrollbar styling */
+.animate-slide-in {
+  animation: slideIn 0.5s ease-out forwards;
+}
+
+/* Enhanced scrollbar styling */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -198,7 +252,7 @@ button, a, [role="button"] {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
-/* Gradient text animation */
+/* Enhanced gradient text animation */
 .gradient-text-animated {
   background: linear-gradient(-45deg, #8b5cf6, #06b6d4, #10b981, #f59e0b);
   background-size: 400% 400%;
@@ -239,5 +293,25 @@ button, a, [role="button"] {
   }
   50% {
     opacity: 1;
+  }
+}
+
+/* Dark mode enhancements */
+@media (prefers-color-scheme: dark) {
+  .glass-effect {
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .hero-glow {
+    animation: none;
+  }
+  
+  .scanning-effect {
+    animation-duration: 3s;
   }
 }

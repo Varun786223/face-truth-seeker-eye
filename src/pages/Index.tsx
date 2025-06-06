@@ -1,7 +1,7 @@
 
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { Hero } from "@/components/home/Hero";
+import { EnhancedHero } from "@/components/home/EnhancedHero";
 import { FeatureCategories } from "@/components/home/FeatureCategories";
 import { AllFeaturesSection } from "@/components/home/AllFeaturesSection";
 import { HowItWorks } from "@/components/home/HowItWorks";
@@ -13,14 +13,16 @@ import { TrustBadges } from "@/components/home/TrustBadges";
 import { CallToActionSection } from "@/components/home/CallToActionSection";
 import { InteractiveDemoSection } from "@/components/home/InteractiveDemoSection";
 import { LiveStatsCounter } from "@/components/home/LiveStatsCounter";
+import { TestimonialsSection } from "@/components/home/TestimonialsSection";
+import { PricingSection } from "@/components/home/PricingSection";
 
 const Index = () => {
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-background to-muted/10">
       <Navbar />
       <main className="flex-grow">
-        {/* Hero Section */}
-        <Hero />
+        {/* Enhanced Hero Section */}
+        <EnhancedHero />
         
         {/* Trust Badges */}
         <TrustBadges />
@@ -45,6 +47,12 @@ const Index = () => {
         
         {/* All Features Section with Drag and Drop */}
         <AllFeaturesSection />
+        
+        {/* Testimonials Section */}
+        <TestimonialsSection />
+        
+        {/* Pricing Section */}
+        <PricingSection />
         
         {/* How It Works */}
         <HowItWorks />
