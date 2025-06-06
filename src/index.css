@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @tailwind base;
 @tailwind components;
@@ -88,6 +87,33 @@
   .feature-hover:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(139, 92, 246, 0.15);
+  }
+  
+  /* Enhanced interactive elements */
+  .fab-bounce {
+    animation: fab-bounce 2s ease-in-out infinite;
+  }
+  
+  .pulse-ring {
+    animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+  }
+  
+  .interactive-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .interactive-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Text color overrides for dark mode */
+  .text-primary-contrast {
+    @apply text-foreground;
+  }
+  
+  .bg-card-interactive {
+    @apply bg-card hover:bg-accent/50 transition-colors duration-200;
   }
 }
 
@@ -313,5 +339,34 @@ button, a, [role="button"] {
   
   .scanning-effect {
     animation-duration: 3s;
+  }
+}
+
+@keyframes fab-bounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@keyframes interactive-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(139, 92, 246, 0.4);
   }
 }

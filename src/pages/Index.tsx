@@ -15,10 +15,12 @@ import { InteractiveDemoSection } from "@/components/home/InteractiveDemoSection
 import { LiveStatsCounter } from "@/components/home/LiveStatsCounter";
 import { TestimonialsSection } from "@/components/home/TestimonialsSection";
 import { PricingSection } from "@/components/home/PricingSection";
+import { InteractiveShowcase } from "@/components/home/InteractiveShowcase";
+import { FloatingActionButton } from "@/components/ui/floating-action-button";
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-background to-muted/10">
+    <div className="min-h-screen flex flex-col bg-background">
       <Navbar />
       <main className="flex-grow">
         {/* Enhanced Hero Section */}
@@ -29,6 +31,9 @@ const Index = () => {
         
         {/* Live Statistics Counter */}
         <LiveStatsCounter />
+        
+        {/* Interactive Showcase */}
+        <InteractiveShowcase />
         
         {/* Stats Section */}
         <StatsSection />
@@ -64,6 +69,9 @@ const Index = () => {
         <FAQ />
       </main>
       <Footer />
+      
+      {/* Floating Action Button */}
+      <FloatingActionButton />
     </div>
   );
 };
