@@ -1,55 +1,41 @@
-
 import { useEffect, useState } from "react";
 import { Shield, Users, Scan, Award } from "lucide-react";
-
 export function StatsSection() {
   const [isVisible, setIsVisible] = useState(false);
-
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.3 }
-    );
-
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setIsVisible(true);
+      }
+    }, {
+      threshold: 0.3
+    });
     const section = document.getElementById('stats-section');
     if (section) observer.observe(section);
-
     return () => observer.disconnect();
   }, []);
-
-  const stats = [
-    {
-      icon: <Shield className="h-8 w-8" />,
-      value: "99.9%",
-      label: "Detection Accuracy",
-      description: "AI-powered precision"
-    },
-    {
-      icon: <Users className="h-8 w-8" />,
-      value: "50K+",
-      label: "Active Users",
-      description: "Worldwide protection"
-    },
-    {
-      icon: <Scan className="h-8 w-8" />,
-      value: "1M+",
-      label: "Files Analyzed",
-      description: "Media verified daily"
-    },
-    {
-      icon: <Award className="h-8 w-8" />,
-      value: "24/7",
-      label: "Real-time Protection",
-      description: "Continuous monitoring"
-    }
-  ];
-
-  return (
-    <section id="stats-section" className="py-16 md:py-20 bg-gradient-to-br from-primary/5 via-transparent to-purple-500/5 relative overflow-hidden">
+  const stats = [{
+    icon: <Shield className="h-8 w-8" />,
+    value: "99.9%",
+    label: "Detection Accuracy",
+    description: "AI-powered precision"
+  }, {
+    icon: <Users className="h-8 w-8" />,
+    value: "50K+",
+    label: "Active Users",
+    description: "Worldwide protection"
+  }, {
+    icon: <Scan className="h-8 w-8" />,
+    value: "1M+",
+    label: "Files Analyzed",
+    description: "Media verified daily"
+  }, {
+    icon: <Award className="h-8 w-8" />,
+    value: "24/7",
+    label: "Real-time Protection",
+    description: "Continuous monitoring"
+  }];
+  return <section id="stats-section" className="py-16 md:py-20 bg-gradient-to-br from-primary/5 via-transparent to-purple-500/5 relative overflow-hidden">
       {/* Animated background elements */}
       <div className="absolute inset-0">
         <div className="absolute top-0 left-1/4 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-pulse opacity-60"></div>
@@ -60,7 +46,7 @@ export function StatsSection() {
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Trusted by{" "}
-            <span className="bg-gradient-to-r from-primary via-purple-600 to-primary bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-primary via-purple-600 to-primary bg-clip-text text-black">
               Thousands Worldwide
             </span>
           </h2>
@@ -70,14 +56,9 @@ export function StatsSection() {
         </div>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {stats.map((stat, index) => (
-            <div
-              key={index}
-              className={`group relative bg-background/60 backdrop-blur-sm border border-primary/10 rounded-2xl p-8 text-center hover:border-primary/30 hover:bg-background/80 transition-all duration-500 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-2 ${
-                isVisible ? 'animate-fade-in' : 'opacity-0'
-              }`}
-              style={{ animationDelay: `${index * 150}ms` }}
-            >
+          {stats.map((stat, index) => <div key={index} className={`group relative bg-background/60 backdrop-blur-sm border border-primary/10 rounded-2xl p-8 text-center hover:border-primary/30 hover:bg-background/80 transition-all duration-500 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-2 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`} style={{
+          animationDelay: `${index * 150}ms`
+        }}>
               {/* Gradient overlay on hover */}
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-purple-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               
@@ -91,10 +72,8 @@ export function StatsSection() {
                 <div className="text-lg font-semibold mb-1">{stat.label}</div>
                 <div className="text-sm text-muted-foreground">{stat.description}</div>
               </div>
-            </div>
-          ))}
+            </div>)}
         </div>
       </div>
-    </section>
-  );
+    </section>;
 }
