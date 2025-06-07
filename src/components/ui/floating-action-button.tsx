@@ -37,7 +37,7 @@ export function FloatingActionButton() {
   ];
 
   return (
-    <div className="fixed bottom-6 right-6 z-40">
+    <div className="fixed bottom-6 right-6 z-50">
       {/* Action buttons */}
       {isOpen && (
         <div className="mb-4 space-y-2">
@@ -47,13 +47,13 @@ export function FloatingActionButton() {
               className="flex items-center justify-end animate-fade-in"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <span className="mr-3 px-2 py-1 bg-background border rounded-md text-sm font-medium text-foreground shadow-md">
+              <span className="mr-3 px-3 py-2 bg-background/95 backdrop-blur-sm border border-border rounded-lg text-sm font-medium text-foreground shadow-lg">
                 {action.label}
               </span>
               <Button
                 size="sm"
-                variant="secondary"
-                className="h-10 w-10 rounded-full shadow-lg hover:shadow-xl transition-all duration-200"
+                variant="outline"
+                className="h-12 w-12 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 bg-background/95 backdrop-blur-sm border-2 border-primary/20 hover:border-primary/40"
                 asChild
               >
                 <a href={action.href}>
@@ -68,7 +68,7 @@ export function FloatingActionButton() {
       {/* Main FAB */}
       <Button
         size="lg"
-        className="h-14 w-14 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 bg-primary hover:bg-primary/90"
+        className="h-16 w-16 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 bg-primary hover:bg-primary/90 text-primary-foreground border-2 border-primary-foreground/10"
         onClick={() => setIsOpen(!isOpen)}
       >
         {isOpen ? (
