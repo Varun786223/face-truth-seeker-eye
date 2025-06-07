@@ -17,62 +17,70 @@ import { TestimonialsSection } from "@/components/home/TestimonialsSection";
 import { PricingSection } from "@/components/home/PricingSection";
 import { InteractiveShowcase } from "@/components/home/InteractiveShowcase";
 import { FloatingActionButton } from "@/components/ui/floating-action-button";
+import { BreadcrumbNav } from "@/components/ui/breadcrumb-nav";
+import { ErrorBoundary } from "@/components/ui/error-boundary";
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex flex-col bg-background">
-      <Navbar />
-      <main className="flex-grow">
-        {/* Enhanced Hero Section */}
-        <EnhancedHero />
+    <ErrorBoundary>
+      <div className="min-h-screen flex flex-col bg-background">
+        <Navbar />
+        <main className="flex-grow">
+          <div className="container mx-auto px-4">
+            <BreadcrumbNav />
+          </div>
+          
+          {/* Enhanced Hero Section */}
+          <EnhancedHero />
+          
+          {/* Trust Badges */}
+          <TrustBadges />
+          
+          {/* Live Statistics Counter */}
+          <LiveStatsCounter />
+          
+          {/* Interactive Showcase */}
+          <InteractiveShowcase />
+          
+          {/* Stats Section */}
+          <StatsSection />
+          
+          {/* Interactive Demo Section */}
+          <InteractiveDemoSection />
+          
+          {/* Main Feature Categories */}
+          <FeatureCategories />
+          
+          {/* Complete Feature List */}
+          <FeatureList />
+          
+          {/* Technology Showcase */}
+          <TechStackShowcase />
+          
+          {/* All Features Section with Drag and Drop */}
+          <AllFeaturesSection />
+          
+          {/* Testimonials Section */}
+          <TestimonialsSection />
+          
+          {/* Pricing Section */}
+          <PricingSection />
+          
+          {/* How It Works */}
+          <HowItWorks />
+          
+          {/* Call to Action */}
+          <CallToActionSection />
+          
+          {/* FAQ Section */}
+          <FAQ />
+        </main>
+        <Footer />
         
-        {/* Trust Badges */}
-        <TrustBadges />
-        
-        {/* Live Statistics Counter */}
-        <LiveStatsCounter />
-        
-        {/* Interactive Showcase */}
-        <InteractiveShowcase />
-        
-        {/* Stats Section */}
-        <StatsSection />
-        
-        {/* Interactive Demo Section */}
-        <InteractiveDemoSection />
-        
-        {/* Main Feature Categories */}
-        <FeatureCategories />
-        
-        {/* Complete Feature List */}
-        <FeatureList />
-        
-        {/* Technology Showcase */}
-        <TechStackShowcase />
-        
-        {/* All Features Section with Drag and Drop */}
-        <AllFeaturesSection />
-        
-        {/* Testimonials Section */}
-        <TestimonialsSection />
-        
-        {/* Pricing Section */}
-        <PricingSection />
-        
-        {/* How It Works */}
-        <HowItWorks />
-        
-        {/* Call to Action */}
-        <CallToActionSection />
-        
-        {/* FAQ Section */}
-        <FAQ />
-      </main>
-      <Footer />
-      
-      {/* Floating Action Button */}
-      <FloatingActionButton />
-    </div>
+        {/* Floating Action Button */}
+        <FloatingActionButton />
+      </div>
+    </ErrorBoundary>
   );
 };
 
