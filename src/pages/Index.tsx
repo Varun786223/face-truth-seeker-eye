@@ -19,13 +19,18 @@ import { InteractiveShowcase } from "@/components/home/InteractiveShowcase";
 import { FloatingActionButton } from "@/components/ui/floating-action-button";
 import { BreadcrumbNav } from "@/components/ui/breadcrumb-nav";
 import { ErrorBoundary } from "@/components/ui/error-boundary";
+import { SEOHead } from "@/components/ui/seo-head";
+import { PWAInstallPrompt } from "@/components/ui/pwa-install-prompt";
+import { AccessibilityHelper } from "@/components/ui/accessibility-helper";
 
 const Index = () => {
   return (
     <ErrorBoundary>
+      <SEOHead />
+      <AccessibilityHelper />
       <div className="min-h-screen flex flex-col bg-background">
         <Navbar />
-        <main className="flex-grow">
+        <main id="main-content" className="flex-grow">
           <div className="container mx-auto px-4">
             <BreadcrumbNav />
           </div>
@@ -77,8 +82,9 @@ const Index = () => {
         </main>
         <Footer />
         
-        {/* Floating Action Button */}
+        {/* Phase 4 Components */}
         <FloatingActionButton />
+        <PWAInstallPrompt />
       </div>
     </ErrorBoundary>
   );
