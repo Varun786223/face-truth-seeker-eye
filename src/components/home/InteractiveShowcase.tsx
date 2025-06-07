@@ -1,50 +1,31 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { 
-  Play, 
-  Pause, 
-  RotateCcw, 
-  Zap, 
-  Shield, 
-  Eye, 
-  Brain,
-  Target,
-  Sparkles
-} from "lucide-react";
-
+import { Play, Pause, RotateCcw, Zap, Shield, Eye, Brain, Target, Sparkles } from "lucide-react";
 export function InteractiveShowcase() {
   const [activeDemo, setActiveDemo] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
-
-  const demos = [
-    {
-      title: "Real-time Detection",
-      description: "Watch as our AI analyzes content in real-time",
-      icon: <Eye className="h-6 w-6" />,
-      color: "bg-blue-500",
-      progress: 85
-    },
-    {
-      title: "Multi-layer Analysis",
-      description: "Deep learning models working together",
-      icon: <Brain className="h-6 w-6" />,
-      color: "bg-purple-500",
-      progress: 92
-    },
-    {
-      title: "Precision Targeting",
-      description: "Identifying specific manipulation techniques",
-      icon: <Target className="h-6 w-6" />,
-      color: "bg-green-500",
-      progress: 78
-    }
-  ];
-
-  return (
-    <section className="py-16 bg-muted/30">
+  const demos = [{
+    title: "Real-time Detection",
+    description: "Watch as our AI analyzes content in real-time",
+    icon: <Eye className="h-6 w-6" />,
+    color: "bg-blue-500",
+    progress: 85
+  }, {
+    title: "Multi-layer Analysis",
+    description: "Deep learning models working together",
+    icon: <Brain className="h-6 w-6" />,
+    color: "bg-purple-500",
+    progress: 92
+  }, {
+    title: "Precision Targeting",
+    description: "Identifying specific manipulation techniques",
+    icon: <Target className="h-6 w-6" />,
+    color: "bg-green-500",
+    progress: 78
+  }];
+  return <section className="py-16 bg-muted/30">
       <div className="container">
         <div className="text-center mb-12">
           <Badge variant="outline" className="mb-4 px-3 py-1">
@@ -53,7 +34,7 @@ export function InteractiveShowcase() {
           </Badge>
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
             See Our AI in{" "}
-            <span className="bg-gradient-to-r from-primary via-purple-600 to-primary bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-primary via-purple-600 to-primary bg-clip-text text-black">
               Action
             </span>
           </h2>
@@ -73,11 +54,7 @@ export function InteractiveShowcase() {
             <CardContent className="space-y-6">
               {/* Demo Controls */}
               <div className="flex items-center justify-center gap-4">
-                <Button
-                  variant={isPlaying ? "secondary" : "default"}
-                  onClick={() => setIsPlaying(!isPlaying)}
-                  className="flex items-center gap-2"
-                >
+                <Button variant={isPlaying ? "secondary" : "default"} onClick={() => setIsPlaying(!isPlaying)} className="flex items-center gap-2">
                   {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
                   {isPlaying ? "Pause Demo" : "Start Demo"}
                 </Button>
@@ -89,14 +66,7 @@ export function InteractiveShowcase() {
 
               {/* Demo Visualization */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {demos.map((demo, index) => (
-                  <Card 
-                    key={index}
-                    className={`cursor-pointer transition-all duration-300 hover:shadow-md ${
-                      activeDemo === index ? 'ring-2 ring-primary shadow-lg' : ''
-                    }`}
-                    onClick={() => setActiveDemo(index)}
-                  >
+                {demos.map((demo, index) => <Card key={index} className={`cursor-pointer transition-all duration-300 hover:shadow-md ${activeDemo === index ? 'ring-2 ring-primary shadow-lg' : ''}`} onClick={() => setActiveDemo(index)}>
                     <CardContent className="p-4 text-center">
                       <div className={`inline-flex items-center justify-center w-12 h-12 rounded-full ${demo.color} text-white mb-3`}>
                         {demo.icon}
@@ -111,19 +81,13 @@ export function InteractiveShowcase() {
                           <span className="text-foreground font-medium">{demo.progress}%</span>
                         </div>
                         <div className="w-full bg-muted rounded-full h-2">
-                          <div 
-                            className={`h-2 rounded-full transition-all duration-1000 ${
-                              isPlaying && activeDemo === index ? demo.color : 'bg-muted-foreground/30'
-                            }`}
-                            style={{ 
-                              width: isPlaying && activeDemo === index ? `${demo.progress}%` : '0%' 
-                            }}
-                          />
+                          <div className={`h-2 rounded-full transition-all duration-1000 ${isPlaying && activeDemo === index ? demo.color : 'bg-muted-foreground/30'}`} style={{
+                        width: isPlaying && activeDemo === index ? `${demo.progress}%` : '0%'
+                      }} />
                         </div>
                       </div>
                     </CardContent>
-                  </Card>
-                ))}
+                  </Card>)}
               </div>
 
               {/* Status Display */}
@@ -135,16 +99,12 @@ export function InteractiveShowcase() {
                   </span>
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  {isPlaying 
-                    ? `Processing ${demos[activeDemo].title.toLowerCase()}...` 
-                    : 'Click "Start Demo" to begin the interactive analysis'
-                  }
+                  {isPlaying ? `Processing ${demos[activeDemo].title.toLowerCase()}...` : 'Click "Start Demo" to begin the interactive analysis'}
                 </p>
               </div>
             </CardContent>
           </Card>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 }
