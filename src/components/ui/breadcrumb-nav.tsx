@@ -10,6 +10,7 @@ interface BreadcrumbItem {
 
 const routeMap: Record<string, string> = {
   "/": "Home",
+  "/dashboard": "Dashboard",
   "/image-analysis": "Image Analysis",
   "/video-analysis": "Video Analysis", 
   "/webcam-analysis": "Webcam Analysis",

@@ -8,6 +8,7 @@ import { ThemeProvider } from "@/components/providers/ThemeProvider";
 
 // Pages
 import Index from "./pages/Index";
+import Dashboard from "./pages/Dashboard";
 import ImageAnalysis from "./pages/ImageAnalysis";
 import VideoAnalysis from "./pages/VideoAnalysis";
 import WebcamAnalysis from "./pages/WebcamAnalysis";
@@ -30,6 +31,7 @@ const App = () => (
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Index />} />
+              <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/image-analysis" element={<ImageAnalysis />} />
               <Route path="/video-analysis" element={<VideoAnalysis />} />
               <Route path="/webcam-analysis" element={<WebcamAnalysis />} />
