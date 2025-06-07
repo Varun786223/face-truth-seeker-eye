@@ -1,11 +1,8 @@
-
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, Sparkles, Shield } from "lucide-react";
-
 export function CallToActionSection() {
-  return (
-    <section className="py-20 md:py-24 relative overflow-hidden">
+  return <section className="py-20 md:py-24 relative overflow-hidden">
       {/* Animated background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-purple-500/5 to-primary/10 animate-gradient"></div>
       
@@ -22,7 +19,7 @@ export function CallToActionSection() {
           
           <h2 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
             Ready to{" "}
-            <span className="bg-gradient-to-r from-primary via-purple-600 to-primary bg-clip-text text-transparent animate-gradient">
+            <span className="bg-gradient-to-r from-primary via-purple-600 to-primary bg-clip-text animate-gradient text-zinc-950">
               Secure Truth
             </span>
             <br />
@@ -34,11 +31,7 @@ export function CallToActionSection() {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-            <Button 
-              asChild 
-              size="lg" 
-              className="rounded-full bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90 text-white shadow-lg hover:shadow-xl transition-all duration-300 group px-8 py-4"
-            >
+            <Button asChild size="lg" className="rounded-full bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90 text-white shadow-lg hover:shadow-xl transition-all duration-300 group px-8 py-4">
               <Link to="/image-analysis" className="flex items-center gap-2">
                 <Shield className="h-5 w-5" />
                 Start Free Analysis
@@ -46,12 +39,7 @@ export function CallToActionSection() {
               </Link>
             </Button>
             
-            <Button 
-              asChild 
-              size="lg" 
-              variant="outline" 
-              className="rounded-full border-primary/30 hover:border-primary/50 hover:bg-primary/5 transition-all duration-300 px-8 py-4"
-            >
+            <Button asChild size="lg" variant="outline" className="rounded-full border-primary/30 hover:border-primary/50 hover:bg-primary/5 transition-all duration-300 px-8 py-4">
               <Link to="/resources">
                 Learn More
               </Link>
@@ -74,6 +62,5 @@ export function CallToActionSection() {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 }
