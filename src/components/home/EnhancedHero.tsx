@@ -1,29 +1,34 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Shield, Image, FileText, Headphones, Sparkles, Zap, Globe, Play, ArrowRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-
 export function EnhancedHero() {
   const [currentDemo, setCurrentDemo] = useState(0);
-  
-  const demoItems = [
-    { type: "Deepfake Detection", accuracy: "99.7%", color: "from-red-500 to-pink-500" },
-    { type: "Voice Clone Analysis", accuracy: "98.9%", color: "from-blue-500 to-cyan-500" },
-    { type: "AI Text Detection", accuracy: "99.2%", color: "from-green-500 to-emerald-500" },
-    { type: "Document Verification", accuracy: "97.8%", color: "from-purple-500 to-violet-500" }
-  ];
-
+  const demoItems = [{
+    type: "Deepfake Detection",
+    accuracy: "99.7%",
+    color: "from-red-500 to-pink-500"
+  }, {
+    type: "Voice Clone Analysis",
+    accuracy: "98.9%",
+    color: "from-blue-500 to-cyan-500"
+  }, {
+    type: "AI Text Detection",
+    accuracy: "99.2%",
+    color: "from-green-500 to-emerald-500"
+  }, {
+    type: "Document Verification",
+    accuracy: "97.8%",
+    color: "from-purple-500 to-violet-500"
+  }];
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentDemo((prev) => (prev + 1) % demoItems.length);
+      setCurrentDemo(prev => (prev + 1) % demoItems.length);
     }, 3000);
     return () => clearInterval(interval);
   }, []);
-
-  return (
-    <section className="relative overflow-hidden py-20 md:py-32 pattern-bg">
+  return <section className="relative overflow-hidden py-20 md:py-32 pattern-bg">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background"></div>
       
       {/* Enhanced animated background elements */}
@@ -71,7 +76,7 @@ export function EnhancedHero() {
             {/* Enhanced CTA buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
               <Button asChild size="lg" className="rounded-full bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90 text-white shadow-lg hover:shadow-xl transition-all duration-300">
-                <Link to="/image-analysis" className="flex items-center gap-2">
+                <Link to="/image-analysis" className="flex flex-col sm:flex-row gap-4">
                   <Zap className="h-4 w-4" />
                   Start Analysis
                   <ArrowRight className="h-4 w-4" />
@@ -132,19 +137,9 @@ export function EnhancedHero() {
                   </div>
                   
                   <div className="grid grid-cols-4 gap-2">
-                    {demoItems.map((item, index) => (
-                      <button
-                        key={index}
-                        onClick={() => setCurrentDemo(index)}
-                        className={`p-2 rounded text-xs transition-all ${
-                          index === currentDemo 
-                            ? 'bg-primary text-primary-foreground' 
-                            : 'bg-muted hover:bg-muted/80'
-                        }`}
-                      >
+                    {demoItems.map((item, index) => <button key={index} onClick={() => setCurrentDemo(index)} className={`p-2 rounded text-xs transition-all ${index === currentDemo ? 'bg-primary text-primary-foreground' : 'bg-muted hover:bg-muted/80'}`}>
                         {item.type.split(' ')[0]}
-                      </button>
-                    ))}
+                      </button>)}
                   </div>
                 </div>
               </CardContent>
@@ -156,6 +151,5 @@ export function EnhancedHero() {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 }
