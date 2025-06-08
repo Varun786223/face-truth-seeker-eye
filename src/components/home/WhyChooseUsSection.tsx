@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Shield, Zap, Globe, Users, Code, Heart } from "lucide-react";
@@ -52,7 +51,7 @@ export function WhyChooseUsSection() {
           </Badge>
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             The World's Most{" "}
-            <span className="bg-gradient-to-r from-primary via-purple-600 to-primary bg-clip-text text-transparent">
+            <span className="text-black dark:text-white">
               Trusted Platform
             </span>
           </h2>

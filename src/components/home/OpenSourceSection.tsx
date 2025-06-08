@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -45,7 +44,7 @@ export function OpenSourceSection() {
           </Badge>
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Completely{" "}
-            <span className="bg-gradient-to-r from-primary via-purple-600 to-primary bg-clip-text text-transparent">
+            <span className="text-black dark:text-white">
               Open & Free
             </span>
           </h2>
