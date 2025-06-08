@@ -1,4 +1,3 @@
-
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -49,7 +48,7 @@ export function CommunitySection() {
           </Badge>
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Built by the{" "}
-            <span className="bg-gradient-to-r from-primary via-purple-600 to-primary bg-clip-text text-transparent">
+            <span className="text-black dark:text-white">
               Community
             </span>
           </h2>
