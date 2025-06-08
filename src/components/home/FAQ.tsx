@@ -34,7 +34,7 @@ export function FAQ() {
     <section className="py-16 md:py-24">
       <div className="container">
         <div className="mx-auto max-w-2xl text-center mb-12 md:mb-16">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-black dark:text-white">
             Frequently Asked Questions
           </h2>
           <p className="mt-4 text-muted-foreground">
@@ -46,7 +46,7 @@ export function FAQ() {
           <Accordion type="single" collapsible className="w-full">
             {faqs.map((faq, i) => (
               <AccordionItem key={i} value={`item-${i}`}>
-                <AccordionTrigger className="text-left font-medium">
+                <AccordionTrigger className="text-left font-medium text-black dark:text-white">
                   {faq.question}
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground">

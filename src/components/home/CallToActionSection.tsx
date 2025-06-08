@@ -1,8 +1,11 @@
+
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, Sparkles, Shield } from "lucide-react";
+
 export function CallToActionSection() {
-  return <section className="py-20 md:py-24 relative overflow-hidden">
+  return (
+    <section className="py-20 md:py-24 relative overflow-hidden">
       {/* Animated background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-purple-500/5 to-primary/10 animate-gradient"></div>
       
@@ -17,9 +20,9 @@ export function CallToActionSection() {
             <span className="text-sm font-medium">Start Your Digital Protection Journey</span>
           </div>
           
-          <h2 className="text-4xl font-bold mb-6 leading-tight text-zinc-950 md:text-5xl">
+          <h2 className="text-4xl font-bold mb-6 leading-tight md:text-5xl text-black dark:text-white">
             Ready to{" "}
-            <span className="bg-gradient-to-r from-primary via-purple-600 to-primary bg-clip-text animate-gradient text-zinc-950">
+            <span className="text-black dark:text-white">
               Secure Truth
             </span>
             <br />
@@ -62,5 +65,6 @@ export function CallToActionSection() {
           </div>
         </div>
       </div>
-    </section>;
+    </section>
+  );
 }

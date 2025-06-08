@@ -29,7 +29,7 @@ export function HowItWorks() {
     <section className="py-16 md:py-24 bg-muted/50">
       <div className="container">
         <div className="mx-auto max-w-2xl text-center mb-12 md:mb-16">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-black dark:text-white">
             How DeepSentinel Works
           </h2>
           <p className="mt-4 text-muted-foreground">
@@ -43,7 +43,7 @@ export function HowItWorks() {
               <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground">
                 {step.icon}
               </div>
-              <h3 className="text-xl font-bold">{step.title}</h3>
+              <h3 className="text-xl font-bold text-black dark:text-white">{step.title}</h3>
               <p className="mt-2 text-muted-foreground">{step.description}</p>
               {i < steps.length - 1 && (
                 <div className="absolute top-6 left-12 hidden w-full border-t border-dashed border-muted-foreground/30 md:block"></div>
