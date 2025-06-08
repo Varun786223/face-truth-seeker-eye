@@ -14,8 +14,10 @@ import { CallToActionSection } from "@/components/home/CallToActionSection";
 import { InteractiveDemoSection } from "@/components/home/InteractiveDemoSection";
 import { LiveStatsCounter } from "@/components/home/LiveStatsCounter";
 import { TestimonialsSection } from "@/components/home/TestimonialsSection";
-import { PricingSection } from "@/components/home/PricingSection";
 import { InteractiveShowcase } from "@/components/home/InteractiveShowcase";
+import { WhyChooseUsSection } from "@/components/home/WhyChooseUsSection";
+import { CommunitySection } from "@/components/home/CommunitySection";
+import { OpenSourceSection } from "@/components/home/OpenSourceSection";
 import { FloatingActionButton } from "@/components/ui/floating-action-button";
 import { BreadcrumbNav } from "@/components/ui/breadcrumb-nav";
 import { ErrorBoundary } from "@/components/ui/error-boundary";
@@ -65,11 +67,17 @@ const Index = () => {
           {/* All Features Section with Drag and Drop */}
           <AllFeaturesSection />
           
+          {/* Why Choose Us Section (replaces pricing) */}
+          <WhyChooseUsSection />
+          
           {/* Testimonials Section */}
           <TestimonialsSection />
           
-          {/* Pricing Section */}
-          <PricingSection />
+          {/* Community Section */}
+          <CommunitySection />
+          
+          {/* Open Source Section */}
+          <OpenSourceSection />
           
           {/* How It Works */}
           <HowItWorks />
