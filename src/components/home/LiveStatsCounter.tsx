@@ -38,29 +38,29 @@ export function LiveStatsCounter() {
       icon: <Zap className="h-5 w-5" />,
       label: "Analyses Today",
       value: stats.analysisToday.toLocaleString(),
-      color: "text-blue-600",
-      bgColor: "bg-blue-50"
+      color: "text-blue-600 dark:text-blue-400",
+      bgColor: "bg-blue-50 dark:bg-blue-950"
     },
     {
       icon: <Users className="h-5 w-5" />,
       label: "Active Users",
       value: stats.activeUsers.toLocaleString(),
-      color: "text-green-600",
-      bgColor: "bg-green-50"
+      color: "text-green-600 dark:text-green-400",
+      bgColor: "bg-green-50 dark:bg-green-950"
     },
     {
       icon: <Shield className="h-5 w-5" />,
       label: "Threats Blocked",
       value: stats.threatsBlocked.toLocaleString(),
-      color: "text-red-600",
-      bgColor: "bg-red-50"
+      color: "text-red-600 dark:text-red-400",
+      bgColor: "bg-red-50 dark:bg-red-950"
     },
     {
       icon: <TrendingUp className="h-5 w-5" />,
       label: "Accuracy Rate",
       value: `${stats.accuracyRate.toFixed(1)}%`,
-      color: "text-purple-600",
-      bgColor: "bg-purple-50"
+      color: "text-purple-600 dark:text-purple-400",
+      bgColor: "bg-purple-50 dark:bg-purple-950"
     }
   ];
 
@@ -83,7 +83,7 @@ export function LiveStatsCounter() {
                 <div className={`inline-flex items-center justify-center w-12 h-12 rounded-full ${counter.bgColor} ${counter.color} mb-3`}>
                   {counter.icon}
                 </div>
-                <div className="text-2xl font-bold mb-1 tabular-nums">
+                <div className="text-2xl font-bold mb-1 tabular-nums text-black dark:text-white">
                   {counter.value}
                 </div>
                 <div className="text-sm text-muted-foreground">

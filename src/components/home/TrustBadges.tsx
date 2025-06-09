@@ -7,32 +7,32 @@ export function TrustBadges() {
     {
       icon: <Shield className="h-5 w-5" />,
       text: "SOC 2 Certified",
-      color: "text-green-600 bg-green-50 border-green-200"
+      color: "text-green-600 bg-green-50 border-green-200 dark:text-green-400 dark:bg-green-950 dark:border-green-800"
     },
     {
       icon: <Award className="h-5 w-5" />,
       text: "AI Excellence Award",
-      color: "text-blue-600 bg-blue-50 border-blue-200"
+      color: "text-blue-600 bg-blue-50 border-blue-200 dark:text-blue-400 dark:bg-blue-950 dark:border-blue-800"
     },
     {
       icon: <Verified className="h-5 w-5" />,
       text: "ISO 27001 Compliant",
-      color: "text-purple-600 bg-purple-50 border-purple-200"
+      color: "text-purple-600 bg-purple-50 border-purple-200 dark:text-purple-400 dark:bg-purple-950 dark:border-purple-800"
     },
     {
       icon: <Lock className="h-5 w-5" />,
       text: "GDPR Compliant",
-      color: "text-orange-600 bg-orange-50 border-orange-200"
+      color: "text-orange-600 bg-orange-50 border-orange-200 dark:text-orange-400 dark:bg-orange-950 dark:border-orange-800"
     },
     {
       icon: <Star className="h-5 w-5" />,
       text: "5-Star Security Rating",
-      color: "text-yellow-600 bg-yellow-50 border-yellow-200"
+      color: "text-yellow-600 bg-yellow-50 border-yellow-200 dark:text-yellow-400 dark:bg-yellow-950 dark:border-yellow-800"
     },
     {
       icon: <Globe className="h-5 w-5" />,
       text: "Globally Trusted",
-      color: "text-indigo-600 bg-indigo-50 border-indigo-200"
+      color: "text-indigo-600 bg-indigo-50 border-indigo-200 dark:text-indigo-400 dark:bg-indigo-950 dark:border-indigo-800"
     }
   ];
 
