@@ -17,7 +17,7 @@ export function CallToActionSection() {
         <div className="max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-4 py-2 mb-6">
             <Sparkles className="h-4 w-4 text-primary" />
-            <span className="text-sm font-medium">Start Your Digital Protection Journey</span>
+            <span className="text-sm font-medium text-black dark:text-white">Start Your Digital Protection Journey</span>
           </div>
           
           <h2 className="text-4xl font-bold mb-6 leading-tight md:text-5xl text-black dark:text-white">

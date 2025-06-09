@@ -1,3 +1,4 @@
+
 import { Badge } from "@/components/ui/badge";
 import { Brain, Cpu, Database, Lock, Zap, Globe } from "lucide-react";
 
@@ -48,7 +49,7 @@ export function TechStackShowcase() {
           <Badge variant="outline" className="mb-4 px-3 py-1">
             Powered by Advanced Technology
           </Badge>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-black dark:text-white">
             Built with{" "}
             <span className="text-black dark:text-white">
               Cutting-Edge Tech
@@ -70,7 +71,7 @@ export function TechStackShowcase() {
                   {tech.icon}
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-semibold text-lg mb-2 group-hover:text-primary transition-colors">
+                  <h3 className="font-semibold text-lg mb-2 group-hover:text-primary transition-colors text-black dark:text-white">
                     {tech.name}
                   </h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
