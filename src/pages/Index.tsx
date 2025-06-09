@@ -24,6 +24,7 @@ import { ErrorBoundary } from "@/components/ui/error-boundary";
 import { SEOHead } from "@/components/ui/seo-head";
 import { PWAInstallPrompt } from "@/components/ui/pwa-install-prompt";
 import { AccessibilityHelper } from "@/components/ui/accessibility-helper";
+import { PageTransition } from "@/components/ui/page-transition";
 
 const Index = () => {
   return (
@@ -32,62 +33,64 @@ const Index = () => {
       <AccessibilityHelper />
       <div className="min-h-screen flex flex-col bg-background">
         <Navbar />
-        <main id="main-content" className="flex-grow">
-          <div className="container mx-auto px-4">
-            <BreadcrumbNav />
-          </div>
-          
-          {/* Enhanced Hero Section */}
-          <EnhancedHero />
-          
-          {/* Trust Badges */}
-          <TrustBadges />
-          
-          {/* Live Statistics Counter */}
-          <LiveStatsCounter />
-          
-          {/* Interactive Showcase */}
-          <InteractiveShowcase />
-          
-          {/* Stats Section */}
-          <StatsSection />
-          
-          {/* Interactive Demo Section */}
-          <InteractiveDemoSection />
-          
-          {/* Main Feature Categories */}
-          <FeatureCategories />
-          
-          {/* Complete Feature List */}
-          <FeatureList />
-          
-          {/* Technology Showcase */}
-          <TechStackShowcase />
-          
-          {/* All Features Section with Drag and Drop */}
-          <AllFeaturesSection />
-          
-          {/* Why Choose Us Section (replaces pricing) */}
-          <WhyChooseUsSection />
-          
-          {/* Testimonials Section */}
-          <TestimonialsSection />
-          
-          {/* Community Section */}
-          <CommunitySection />
-          
-          {/* Open Source Section */}
-          <OpenSourceSection />
-          
-          {/* How It Works */}
-          <HowItWorks />
-          
-          {/* Call to Action */}
-          <CallToActionSection />
-          
-          {/* FAQ Section */}
-          <FAQ />
-        </main>
+        <PageTransition>
+          <main id="main-content" className="flex-grow">
+            <div className="container mx-auto px-4">
+              <BreadcrumbNav />
+            </div>
+            
+            {/* Enhanced Hero Section */}
+            <EnhancedHero />
+            
+            {/* Trust Badges */}
+            <TrustBadges />
+            
+            {/* Live Statistics Counter */}
+            <LiveStatsCounter />
+            
+            {/* Interactive Showcase */}
+            <InteractiveShowcase />
+            
+            {/* Stats Section */}
+            <StatsSection />
+            
+            {/* Interactive Demo Section */}
+            <InteractiveDemoSection />
+            
+            {/* Main Feature Categories */}
+            <FeatureCategories />
+            
+            {/* Complete Feature List */}
+            <FeatureList />
+            
+            {/* Technology Showcase */}
+            <TechStackShowcase />
+            
+            {/* All Features Section with Drag and Drop */}
+            <AllFeaturesSection />
+            
+            {/* Why Choose Us Section (replaces pricing) */}
+            <WhyChooseUsSection />
+            
+            {/* Testimonials Section */}
+            <TestimonialsSection />
+            
+            {/* Community Section */}
+            <CommunitySection />
+            
+            {/* Open Source Section */}
+            <OpenSourceSection />
+            
+            {/* How It Works */}
+            <HowItWorks />
+            
+            {/* Call to Action */}
+            <CallToActionSection />
+            
+            {/* FAQ Section */}
+            <FAQ />
+          </main>
+        </PageTransition>
         <Footer />
         
         {/* Phase 4 Components */}
