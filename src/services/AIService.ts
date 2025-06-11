@@ -1,4 +1,3 @@
-
 // This is a service for handling Gemini API interactions
 import { toast } from "sonner";
 
@@ -581,9 +580,15 @@ export class AIService {
   }
 }
 
-// Create singleton instance with stored API key
+// Initialize with the provided API key
+const GEMINI_API_KEY = "AIzaSyA8qfeT1uZca3bG3e3FvA-vwO7xXuq_H54";
+
+// Store the API key in localStorage for persistence
+localStorage.setItem("gemini_api_key", GEMINI_API_KEY);
+
+// Create singleton instance with the API key
 const aiService = new AIService({ 
-  apiKey: AIService.getStoredApiKey()
+  apiKey: GEMINI_API_KEY
 });
 
 export default aiService;
