@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from "react";
-import { File, Upload, X, AlertTriangle, CheckCircle, Info } from "lucide-react";
+import { File, Upload, X, AlertTriangle, CheckCircle, Info, Zap } from "lucide-react";
 import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -160,6 +160,7 @@ export function SmartFileAnalyzer({ onFeatureSuggestion }: SmartFileAnalyzerProp
       
       setSuggestedFeatures(features);
       setAnalyzing(false);
+      toast.success("File analysis completed!");
     }, 2500);
     
     return () => {
@@ -172,15 +173,16 @@ export function SmartFileAnalyzer({ onFeatureSuggestion }: SmartFileAnalyzerProp
     if (onFeatureSuggestion) {
       onFeatureSuggestion(featureId);
     } else {
-      toast.info(`Selected feature: ${suggestedFeatures.find(f => f.id === featureId)?.name}`);
+      const feature = suggestedFeatures.find(f => f.id === featureId);
+      toast.success(`Selected: ${feature?.name}`);
     }
   };
 
   const getRiskLevelColor = (level: string) => {
     switch (level) {
       case 'high': return 'text-destructive bg-destructive/10 border-destructive/20';
-      case 'medium': return 'text-orange-600 bg-orange-50 border-orange-200';
-      case 'low': return 'text-green-600 bg-green-50 border-green-200';
+      case 'medium': return 'text-orange-600 bg-orange-50 border-orange-200 dark:bg-orange-950/20 dark:border-orange-800/30';
+      case 'low': return 'text-green-600 bg-green-50 border-green-200 dark:bg-green-950/20 dark:border-green-800/30';
       default: return 'text-muted-foreground bg-muted/50 border-muted';
     }
   };
@@ -195,56 +197,69 @@ export function SmartFileAnalyzer({ onFeatureSuggestion }: SmartFileAnalyzerProp
   };
 
   return (
-    <Card className="border-primary/20">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
+    <Card className="border-primary/20 shadow-lg">
+      <CardHeader className="pb-4">
+        <CardTitle className="flex items-center gap-2 text-lg">
           <File className="h-5 w-5 text-primary" />
-          Enhanced Smart File Analysis
+          Smart File Analysis
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-6">
         {files.length === 0 ? (
-          <FileUpload
-            onChange={handleFileChange}
-            accept="*/*"
-            multiple={false}
-          />
-        ) : (
           <div className="space-y-4">
-            <div className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
+            <FileUpload
+              onChange={handleFileChange}
+              accept="*/*"
+              multiple={false}
+            />
+            <div className="text-center">
+              <p className="text-sm text-muted-foreground">
+                Upload any file to get intelligent analysis and feature recommendations
+              </p>
+            </div>
+          </div>
+        ) : (
+          <div className="space-y-6">
+            <div className="flex items-center justify-between p-4 bg-gradient-to-r from-primary/5 to-primary/10 rounded-lg border border-primary/20">
               <div className="flex items-center gap-3">
                 <File className="h-8 w-8 text-primary" />
                 <div>
-                  <p className="font-medium">{files[0].name}</p>
+                  <p className="font-medium text-foreground">{files[0].name}</p>
                   <p className="text-sm text-muted-foreground">
                     {(files[0].size / 1024 / 1024).toFixed(2)} MB • {fileType}
                   </p>
                 </div>
               </div>
-              <Button variant="ghost" size="sm" onClick={removeFile}>
+              <Button variant="ghost" size="sm" onClick={removeFile} className="hover:bg-destructive/10 hover:text-destructive">
                 <X className="h-4 w-4" />
               </Button>
             </div>
 
             {analyzing && (
-              <div className="space-y-3">
+              <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm font-medium">Analyzing file...</span>
-                  <span className="text-sm text-muted-foreground">{Math.round(analysisProgress)}%</span>
+                  <span className="text-sm font-medium flex items-center gap-2">
+                    <Zap className="h-4 w-4 text-primary animate-pulse" />
+                    Analyzing file...
+                  </span>
+                  <span className="text-sm text-muted-foreground font-medium">{Math.round(analysisProgress)}%</span>
                 </div>
-                <Progress value={analysisProgress} className="w-full" />
-                <p className="text-xs text-muted-foreground">
+                <Progress value={analysisProgress} className="w-full h-2" />
+                <p className="text-xs text-muted-foreground text-center">
                   Running content analysis, metadata extraction, and threat detection...
                 </p>
               </div>
             )}
 
             {fileAnalysis && !analyzing && (
-              <div className="space-y-4">
-                <div className="p-4 border rounded-lg space-y-3">
-                  <h4 className="font-medium">File Analysis Results</h4>
+              <div className="space-y-6">
+                <div className="p-4 sm:p-6 border rounded-lg bg-muted/30 space-y-4">
+                  <h4 className="font-semibold text-lg flex items-center gap-2">
+                    <CheckCircle className="h-5 w-5 text-green-600" />
+                    Analysis Complete
+                  </h4>
                   
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <div className="flex items-center justify-between">
                         <span className="text-sm text-muted-foreground">Risk Level</span>
@@ -262,11 +277,11 @@ export function SmartFileAnalyzer({ onFeatureSuggestion }: SmartFileAnalyzerProp
 
                   {fileAnalysis.threats.length > 0 && (
                     <div>
-                      <h5 className="text-sm font-medium mb-2">Potential Threats</h5>
+                      <h5 className="text-sm font-medium mb-2 text-destructive">Potential Threats</h5>
                       <ul className="space-y-1">
                         {fileAnalysis.threats.map((threat, i) => (
                           <li key={i} className="text-sm text-muted-foreground flex items-center gap-2">
-                            <AlertTriangle className="h-3 w-3 text-destructive" />
+                            <AlertTriangle className="h-3 w-3 text-destructive flex-shrink-0" />
                             {threat}
                           </li>
                         ))}
@@ -276,11 +291,11 @@ export function SmartFileAnalyzer({ onFeatureSuggestion }: SmartFileAnalyzerProp
 
                   {fileAnalysis.recommendations.length > 0 && (
                     <div>
-                      <h5 className="text-sm font-medium mb-2">Recommendations</h5>
+                      <h5 className="text-sm font-medium mb-2 text-green-600">Recommendations</h5>
                       <ul className="space-y-1">
                         {fileAnalysis.recommendations.map((rec, i) => (
                           <li key={i} className="text-sm text-muted-foreground flex items-center gap-2">
-                            <CheckCircle className="h-3 w-3 text-green-500" />
+                            <CheckCircle className="h-3 w-3 text-green-500 flex-shrink-0" />
                             {rec}
                           </li>
                         ))}
@@ -295,7 +310,7 @@ export function SmartFileAnalyzer({ onFeatureSuggestion }: SmartFileAnalyzerProp
         
         {!analyzing && suggestedFeatures.length > 0 && (
           <div className="space-y-4">
-            <h3 className="text-sm font-medium">Recommended Analysis Features</h3>
+            <h3 className="text-base font-semibold">Recommended Analysis Features</h3>
             <div className="space-y-3">
               {suggestedFeatures
                 .sort((a, b) => {
@@ -303,40 +318,43 @@ export function SmartFileAnalyzer({ onFeatureSuggestion }: SmartFileAnalyzerProp
                   return priorityOrder[b.priority] - priorityOrder[a.priority];
                 })
                 .map((feature) => (
-                <div key={feature.id} className="p-3 rounded-lg border flex justify-between items-start hover:border-primary/50 transition-colors">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="font-medium">{feature.name}</span>
-                      <Badge 
-                        variant="outline" 
-                        className={`text-xs ${
-                          feature.priority === 'high' ? 'border-red-200 text-red-600' : 
-                          feature.priority === 'medium' ? 'border-orange-200 text-orange-600' : 
-                          'border-gray-200 text-gray-600'
-                        }`}
-                      >
-                        {feature.priority} priority
-                      </Badge>
-                      <Badge variant="outline" className="text-xs">
-                        {feature.confidence}% match
-                      </Badge>
+                <div key={feature.id} className="p-4 rounded-lg border border-border hover:border-primary/50 transition-all duration-200 bg-card">
+                  <div className="flex justify-between items-start gap-4">
+                    <div className="flex-1 space-y-2">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="font-medium text-foreground">{feature.name}</span>
+                        <Badge 
+                          variant="outline" 
+                          className={`text-xs ${
+                            feature.priority === 'high' ? 'border-red-200 text-red-600 dark:border-red-800 dark:text-red-400' : 
+                            feature.priority === 'medium' ? 'border-orange-200 text-orange-600 dark:border-orange-800 dark:text-orange-400' : 
+                            'border-gray-200 text-gray-600 dark:border-gray-700 dark:text-gray-400'
+                          }`}
+                        >
+                          {feature.priority} priority
+                        </Badge>
+                        <Badge variant="outline" className="text-xs">
+                          {feature.confidence}% match
+                        </Badge>
+                      </div>
+                      <p className="text-sm text-muted-foreground">{feature.description}</p>
                     </div>
-                    <p className="text-sm text-muted-foreground">{feature.description}</p>
+                    <Button 
+                      size="sm" 
+                      onClick={() => handleFeatureSelect(feature.id)}
+                      variant={feature.priority === 'high' ? 'default' : 'outline'}
+                      className="flex-shrink-0"
+                    >
+                      Select
+                    </Button>
                   </div>
-                  <Button 
-                    size="sm" 
-                    onClick={() => handleFeatureSelect(feature.id)}
-                    variant={feature.priority === 'high' ? 'default' : 'outline'}
-                  >
-                    Select
-                  </Button>
                 </div>
               ))}
             </div>
             
-            <div className="pt-2">
-              <Link to="/resources" className="text-sm text-primary hover:underline">
-                Learn more about our analysis techniques
+            <div className="pt-4 border-t border-border">
+              <Link to="/resources" className="text-sm text-primary hover:underline font-medium">
+                Learn more about our analysis techniques →
               </Link>
             </div>
           </div>

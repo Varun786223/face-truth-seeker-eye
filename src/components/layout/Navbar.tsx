@@ -20,17 +20,23 @@ export function Navbar() {
   ];
 
   return (
-    <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b safe-area-top" role="navigation" aria-label="Main navigation">
-      <div className="container mx-auto mobile-container">
-        <div className="flex justify-between items-center h-16">
+    <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/80 border-b border-border/40 safe-area-top" role="navigation" aria-label="Main navigation">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16 lg:h-18">
           {/* Logo */}
           <Link 
             to="/" 
-            className="flex items-center space-x-2 hover:opacity-80 transition-opacity focus-ring min-h-[44px]"
+            className="flex items-center space-x-2 hover:opacity-80 transition-opacity focus-ring min-h-[44px] group"
             aria-label="DeepSentinel home"
+            onClick={() => setIsOpen(false)}
           >
-            <Shield className="h-6 w-6 sm:h-8 sm:w-8 text-primary" aria-hidden="true" />
-            <span className="text-lg sm:text-xl font-bold text-foreground">DeepSentinel</span>
+            <div className="relative">
+              <Shield className="h-7 w-7 sm:h-8 sm:w-8 text-primary transition-transform group-hover:scale-110" aria-hidden="true" />
+              <div className="absolute inset-0 h-7 w-7 sm:h-8 sm:w-8 bg-primary/20 rounded-full blur-xl group-hover:bg-primary/30 transition-all"></div>
+            </div>
+            <span className="text-lg sm:text-xl lg:text-2xl font-bold text-foreground bg-gradient-to-r from-primary via-primary to-primary/80 bg-clip-text text-transparent">
+              DeepSentinel
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -40,7 +46,7 @@ export function Navbar() {
                 key={item.name}
                 variant={location.pathname === item.href ? "secondary" : "ghost"}
                 asChild
-                className="text-foreground hover:text-primary transition-colors focus-ring text-sm"
+                className="text-foreground hover:text-primary hover:bg-primary/10 transition-all duration-200 focus-ring text-sm font-medium px-3 py-2"
                 role="menuitem"
               >
                 <Link to={item.href} aria-current={location.pathname === item.href ? "page" : undefined}>
@@ -54,20 +60,23 @@ export function Navbar() {
           <div className="flex items-center space-x-2 sm:space-x-3">
             <ThemeToggle />
             <Button 
-              variant="outline" 
+              variant="default" 
               size="sm" 
-              className="hidden sm:inline-flex focus-ring hover-lift text-sm"
+              className="hidden sm:inline-flex focus-ring hover-lift text-sm font-medium bg-primary hover:bg-primary/90 shadow-lg"
               aria-label="Get started with DeepSentinel"
+              asChild
             >
-              <Zap className="h-4 w-4 mr-2" aria-hidden="true" />
-              Get Started
+              <Link to="/image-analysis">
+                <Zap className="h-4 w-4 mr-2" aria-hidden="true" />
+                Get Started
+              </Link>
             </Button>
             
             {/* Mobile menu button */}
             <Button
               variant="ghost"
               size="sm"
-              className="lg:hidden focus-ring min-h-[44px] min-w-[44px]"
+              className="lg:hidden focus-ring min-h-[44px] min-w-[44px] hover:bg-primary/10"
               onClick={() => setIsOpen(!isOpen)}
               aria-expanded={isOpen}
               aria-controls="mobile-menu"
@@ -82,7 +91,7 @@ export function Navbar() {
         {isOpen && (
           <div 
             id="mobile-menu" 
-            className="lg:hidden border-t py-4 space-y-2 animate-fade-in safe-area-bottom"
+            className="lg:hidden border-t border-border/40 py-4 space-y-2 animate-fade-in safe-area-bottom bg-background/95 backdrop-blur-md"
             role="menu"
             aria-label="Mobile navigation menu"
           >
@@ -91,7 +100,7 @@ export function Navbar() {
                 key={item.name}
                 variant={location.pathname === item.href ? "secondary" : "ghost"}
                 asChild
-                className="w-full justify-start text-foreground focus-ring min-h-[48px] text-base"
+                className="w-full justify-start text-foreground focus-ring min-h-[48px] text-base font-medium hover:bg-primary/10"
                 onClick={() => setIsOpen(false)}
                 role="menuitem"
               >
@@ -104,13 +113,16 @@ export function Navbar() {
               </Button>
             ))}
             <Button 
-              variant="outline" 
-              className="w-full mt-4 focus-ring min-h-[48px] text-base"
+              variant="default" 
+              className="w-full mt-4 focus-ring min-h-[48px] text-base font-medium bg-primary hover:bg-primary/90 shadow-lg"
               aria-label="Get started with DeepSentinel"
               onClick={() => setIsOpen(false)}
+              asChild
             >
-              <Zap className="h-4 w-4 mr-2" aria-hidden="true" />
-              Get Started
+              <Link to="/image-analysis">
+                <Zap className="h-4 w-4 mr-2" aria-hidden="true" />
+                Get Started
+              </Link>
             </Button>
           </div>
         )}

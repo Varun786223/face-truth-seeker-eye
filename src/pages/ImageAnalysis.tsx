@@ -4,9 +4,9 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { FileUpload } from "@/components/ui/file-upload";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Info, AlertTriangle, CheckCircle } from "lucide-react";
+import { Info, AlertTriangle, CheckCircle, Upload, Zap, Shield } from "lucide-react";
 import { toast } from "sonner";
 import aiService from "@/services/AIService";
 import { VerificationResultsPanel } from "@/components/analysis/VerificationResultsPanel";
@@ -52,9 +52,10 @@ const ImageAnalysis = () => {
           const analysisResult = await aiService.analyzeImage(base64Image);
           setResults(analysisResult);
           console.log("Analysis result:", analysisResult);
+          toast.success("Image analysis completed successfully!");
         } catch (error) {
           console.error("Error analyzing image:", error);
-          toast.error("Failed to analyze image");
+          toast.error("Failed to analyze image. Please try again.");
         } finally {
           setIsAnalyzing(false);
         }
@@ -67,7 +68,7 @@ const ImageAnalysis = () => {
       };
     } catch (error) {
       console.error("Error analyzing image:", error);
-      toast.error("Failed to analyze image");
+      toast.error("Failed to analyze image. Please try again.");
       setIsAnalyzing(false);
     }
   };
@@ -77,23 +78,32 @@ const ImageAnalysis = () => {
     
     if (results.deepfakeScore > 70) {
       return (
-        <div className="flex items-center gap-2 text-destructive font-semibold">
-          <AlertTriangle className="h-5 w-5" />
-          <span>High probability of manipulation detected</span>
+        <div className="flex items-center gap-3 p-4 rounded-lg bg-destructive/10 border border-destructive/20">
+          <AlertTriangle className="h-6 w-6 text-destructive" />
+          <div>
+            <span className="font-semibold text-destructive">High Risk Detected</span>
+            <p className="text-sm text-muted-foreground mt-1">This image shows strong signs of AI manipulation</p>
+          </div>
         </div>
       );
     } else if (results.deepfakeScore > 30) {
       return (
-        <div className="flex items-center gap-2 text-orange-500 font-semibold">
-          <Info className="h-5 w-5" />
-          <span>Some signs of possible manipulation</span>
+        <div className="flex items-center gap-3 p-4 rounded-lg bg-orange-50 border border-orange-200 dark:bg-orange-950/20 dark:border-orange-800/30">
+          <Info className="h-6 w-6 text-orange-600" />
+          <div>
+            <span className="font-semibold text-orange-600">Moderate Risk</span>
+            <p className="text-sm text-muted-foreground mt-1">Some indicators of possible manipulation detected</p>
+          </div>
         </div>
       );
     } else {
       return (
-        <div className="flex items-center gap-2 text-green-500 font-semibold">
-          <CheckCircle className="h-5 w-5" />
-          <span>No manipulation detected</span>
+        <div className="flex items-center gap-3 p-4 rounded-lg bg-green-50 border border-green-200 dark:bg-green-950/20 dark:border-green-800/30">
+          <CheckCircle className="h-6 w-6 text-green-600" />
+          <div>
+            <span className="font-semibold text-green-600">Low Risk</span>
+            <p className="text-sm text-muted-foreground mt-1">No significant manipulation detected</p>
+          </div>
         </div>
       );
     }
@@ -116,92 +126,143 @@ const ImageAnalysis = () => {
   };
 
   return (
-    <>
+    <div className="min-h-screen bg-background">
       <Navbar />
-      <main className="container py-20 md:py-32">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
         <div className="mx-auto max-w-4xl">
-          <div className="mb-10 text-center">
-            <h1 className="text-3xl font-bold sm:text-4xl">Image Analysis</h1>
-            <p className="mt-4 text-muted-foreground">
-              Upload an image to analyze it for signs of deepfake manipulation
+          {/* Header */}
+          <div className="mb-8 sm:mb-12 text-center">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <Shield className="h-8 w-8 sm:h-10 sm:w-10 text-primary" />
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-primary via-primary to-primary/80 bg-clip-text text-transparent">
+                Image Analysis
+              </h1>
+            </div>
+            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
+              Upload an image to analyze it for signs of deepfake manipulation using advanced AI detection
             </p>
           </div>
 
-          <Card className="mb-8">
-            <CardContent className="pt-6">
+          {/* Upload Section */}
+          <Card className="mb-8 shadow-lg border-primary/20">
+            <CardHeader className="pb-4">
+              <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
+                <Upload className="h-5 w-5 text-primary" />
+                Upload Image for Analysis
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
               <FileUpload
                 accept="image/*"
                 onChange={handleFileChange}
                 multiple={false}
               />
               
-              <div className="mt-4 flex justify-center">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <Button
                   onClick={analyzeImages}
                   disabled={isAnalyzing || files.length === 0}
-                  className="min-w-[150px]"
+                  className="min-w-[160px] h-12 text-base font-medium bg-primary hover:bg-primary/90 shadow-lg"
+                  size="lg"
                 >
-                  {isAnalyzing ? "Analyzing..." : "Analyze Image"}
+                  {isAnalyzing ? (
+                    <>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                      Analyzing...
+                    </>
+                  ) : (
+                    <>
+                      <Zap className="h-4 w-4 mr-2" />
+                      Analyze Image
+                    </>
+                  )}
                 </Button>
+                
+                {files.length > 0 && (
+                  <p className="text-sm text-muted-foreground">
+                    Selected: <span className="font-medium">{files[0].name}</span>
+                  </p>
+                )}
               </div>
             </CardContent>
           </Card>
 
+          {/* Results Section */}
           {results && (
-            <Card>
-              <CardContent className="pt-6">
+            <Card className="shadow-lg border-primary/20">
+              <CardHeader className="pb-4">
+                <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
+                  <Shield className="h-5 w-5 text-primary" />
+                  Analysis Results
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                {/* Result Indicator */}
                 <div className="mb-6">
                   {renderResultIndicator()}
                 </div>
                 
-                <Tabs defaultValue="summary">
-                  <TabsList className="mb-4">
-                    <TabsTrigger value="summary">Summary</TabsTrigger>
-                    <TabsTrigger value="details">Detailed Analysis</TabsTrigger>
-                    <TabsTrigger value="visualization">Visualization</TabsTrigger>
-                    <TabsTrigger value="verification">Verification</TabsTrigger>
-                    <TabsTrigger value="advanced">Advanced</TabsTrigger>
-                    <TabsTrigger value="report">PDF Report</TabsTrigger>
+                {/* Tabs for detailed results */}
+                <Tabs defaultValue="summary" className="w-full">
+                  <TabsList className="grid grid-cols-3 lg:grid-cols-6 mb-6 h-auto p-1 bg-muted/50">
+                    <TabsTrigger value="summary" className="text-xs sm:text-sm py-2">Summary</TabsTrigger>
+                    <TabsTrigger value="details" className="text-xs sm:text-sm py-2">Details</TabsTrigger>
+                    <TabsTrigger value="visualization" className="text-xs sm:text-sm py-2">Visual</TabsTrigger>
+                    <TabsTrigger value="verification" className="text-xs sm:text-sm py-2">Verify</TabsTrigger>
+                    <TabsTrigger value="advanced" className="text-xs sm:text-sm py-2">Advanced</TabsTrigger>
+                    <TabsTrigger value="report" className="text-xs sm:text-sm py-2">Report</TabsTrigger>
                   </TabsList>
                   
-                  <TabsContent value="summary">
-                    <div className="space-y-4">
-                      <div className="grid gap-4 md:grid-cols-2">
-                        <div className="space-y-2 rounded-lg bg-muted/50 p-4">
-                          <h3 className="text-sm font-medium text-muted-foreground">Deepfake Score</h3>
-                          <p className="text-2xl font-bold">{results.deepfakeScore}%</p>
-                        </div>
-                        
-                        <div className="space-y-2 rounded-lg bg-muted/50 p-4">
-                          <h3 className="text-sm font-medium text-muted-foreground">Face Swap Detection</h3>
-                          <p className="text-2xl font-bold">
-                            {results.faceSwapDetected ? "Detected" : "Not Detected"}
-                          </p>
-                        </div>
-                        
-                        <div className="space-y-2 rounded-lg bg-muted/50 p-4">
-                          <h3 className="text-sm font-medium text-muted-foreground">Confidence Level</h3>
-                          <p className="text-2xl font-bold capitalize">{results.confidence}</p>
-                        </div>
-                        
-                        <div className="space-y-2 rounded-lg bg-muted/50 p-4">
-                          <h3 className="text-sm font-medium text-muted-foreground">Analysis Time</h3>
-                          <p className="text-2xl font-bold">{results.analysisTime || "1.5 seconds"}</p>
+                  <TabsContent value="summary" className="space-y-6">
+                    <div className="grid gap-4 sm:gap-6 md:grid-cols-2">
+                      <div className="space-y-3 rounded-lg bg-gradient-to-br from-primary/5 to-primary/10 p-4 sm:p-6 border border-primary/20">
+                        <h3 className="text-sm font-medium text-muted-foreground">Deepfake Score</h3>
+                        <p className="text-3xl sm:text-4xl font-bold text-primary">{results.deepfakeScore}%</p>
+                        <div className="w-full bg-muted/30 rounded-full h-2">
+                          <div 
+                            className="bg-primary h-2 rounded-full transition-all duration-500" 
+                            style={{ width: `${results.deepfakeScore}%` }}
+                          ></div>
                         </div>
                       </div>
                       
-                      <div className="rounded-lg bg-primary/10 p-4 border border-primary/20">
-                        <h3 className="font-medium">Analysis Summary</h3>
-                        <p className="mt-2 text-sm text-muted-foreground">
-                          {results.deepfakeScore > 70 ? (
-                            "This image shows strong indicators of manipulation. Our AI has detected inconsistencies in facial features and lighting that suggest this may be a deepfake. We recommend verifying this content from other sources before sharing."
-                          ) : results.deepfakeScore > 30 ? (
-                            "This image shows some potential signs of manipulation. While not conclusive, our AI has detected some inconsistencies that may indicate editing or manipulation. We recommend reviewing the detailed analysis for more information."
-                          ) : (
-                            "This image appears to be authentic. Our AI didn't detect significant signs of manipulation or deepfake artifacts. However, no detection system is 100% accurate, so always exercise caution with sensitive content."
-                          )}
+                      <div className="space-y-3 rounded-lg bg-muted/50 p-4 sm:p-6 border">
+                        <h3 className="text-sm font-medium text-muted-foreground">Face Swap Detection</h3>
+                        <p className="text-2xl sm:text-3xl font-bold">
+                          {results.faceSwapDetected ? "Detected" : "Not Detected"}
                         </p>
+                        <div className={`inline-flex px-3 py-1 rounded-full text-sm font-medium ${
+                          results.faceSwapDetected ? 'bg-destructive/10 text-destructive' : 'bg-green-100 text-green-700 dark:bg-green-900/20 dark:text-green-400'
+                        }`}>
+                          {results.faceSwapDetected ? "High Risk" : "Safe"}
+                        </div>
                       </div>
+                      
+                      <div className="space-y-3 rounded-lg bg-muted/50 p-4 sm:p-6 border">
+                        <h3 className="text-sm font-medium text-muted-foreground">Confidence Level</h3>
+                        <p className="text-2xl sm:text-3xl font-bold capitalize">{results.confidence}</p>
+                      </div>
+                      
+                      <div className="space-y-3 rounded-lg bg-muted/50 p-4 sm:p-6 border">
+                        <h3 className="text-sm font-medium text-muted-foreground">Analysis Time</h3>
+                        <p className="text-2xl sm:text-3xl font-bold">{results.analysisTime || "1.5s"}</p>
+                      </div>
+                    </div>
+                    
+                    <div className="rounded-lg bg-primary/10 p-4 sm:p-6 border border-primary/20">
+                      <h3 className="font-semibold mb-3 flex items-center gap-2">
+                        <Info className="h-5 w-5 text-primary" />
+                        Analysis Summary
+                      </h3>
+                      <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+                        {results.deepfakeScore > 70 ? (
+                          "This image shows strong indicators of manipulation. Our AI has detected inconsistencies in facial features and lighting that suggest this may be a deepfake. We recommend verifying this content from other sources before sharing."
+                        ) : results.deepfakeScore > 30 ? (
+                          "This image shows some potential signs of manipulation. While not conclusive, our AI has detected some inconsistencies that may indicate editing or manipulation. We recommend reviewing the detailed analysis for more information."
+                        ) : (
+                          "This image appears to be authentic. Our AI didn't detect significant signs of manipulation or deepfake artifacts. However, no detection system is 100% accurate, so always exercise caution with sensitive content."
+                        )}
+                      </p>
                     </div>
                   </TabsContent>
                   
@@ -308,7 +369,7 @@ const ImageAnalysis = () => {
         </div>
       </main>
       <Footer />
-    </>
+    </div>
   );
 };
 

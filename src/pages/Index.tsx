@@ -33,93 +33,127 @@ const Index = () => {
       <div className="min-h-screen flex flex-col bg-background overflow-x-hidden">
         <Navbar />
         <main id="main-content" className="flex-grow">
-          <div className="container mx-auto mobile-container">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <BreadcrumbNav />
           </div>
           
           {/* Enhanced Hero Section */}
-          <section className="mobile-padding">
-            <EnhancedHero />
+          <section className="py-8 sm:py-12 lg:py-16">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+              <EnhancedHero />
+            </div>
           </section>
           
           {/* Trust Badges */}
-          <section className="mobile-padding">
-            <TrustBadges />
+          <section className="py-6 sm:py-8 lg:py-12 bg-muted/30">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+              <TrustBadges />
+            </div>
           </section>
           
           {/* Live Statistics Counter */}
-          <section className="mobile-padding">
-            <LiveStatsCounter />
+          <section className="py-8 sm:py-12 lg:py-16">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+              <LiveStatsCounter />
+            </div>
           </section>
           
           {/* Interactive Showcase */}
-          <section className="mobile-padding">
-            <InteractiveShowcase />
+          <section className="py-8 sm:py-12 lg:py-16 bg-muted/20">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+              <InteractiveShowcase />
+            </div>
           </section>
           
           {/* Stats Section */}
-          <section className="mobile-padding">
-            <StatsSection />
+          <section className="py-8 sm:py-12 lg:py-16">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+              <StatsSection />
+            </div>
           </section>
           
           {/* Interactive Demo Section */}
-          <section className="mobile-padding">
-            <InteractiveDemoSection />
+          <section className="py-8 sm:py-12 lg:py-16 bg-primary/5">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+              <InteractiveDemoSection />
+            </div>
           </section>
           
           {/* Main Feature Categories */}
-          <section className="mobile-padding">
-            <FeatureCategories />
+          <section className="py-8 sm:py-12 lg:py-16">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+              <FeatureCategories />
+            </div>
           </section>
           
           {/* Complete Feature List */}
-          <section className="mobile-padding">
-            <FeatureList />
+          <section className="py-8 sm:py-12 lg:py-16 bg-muted/20">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+              <FeatureList />
+            </div>
           </section>
           
           {/* Technology Showcase */}
-          <section className="mobile-padding">
-            <TechStackShowcase />
+          <section className="py-8 sm:py-12 lg:py-16">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+              <TechStackShowcase />
+            </div>
           </section>
           
           {/* All Features Section with Drag and Drop */}
-          <section className="mobile-padding">
-            <AllFeaturesSection />
+          <section className="py-8 sm:py-12 lg:py-16 bg-gradient-to-b from-primary/5 to-background">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+              <AllFeaturesSection />
+            </div>
           </section>
           
           {/* Why Choose Us Section */}
-          <section className="mobile-padding">
-            <WhyChooseUsSection />
+          <section className="py-8 sm:py-12 lg:py-16">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+              <WhyChooseUsSection />
+            </div>
           </section>
           
           {/* Testimonials Section */}
-          <section className="mobile-padding">
-            <TestimonialsSection />
+          <section className="py-8 sm:py-12 lg:py-16 bg-muted/20">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+              <TestimonialsSection />
+            </div>
           </section>
           
           {/* Community Section */}
-          <section className="mobile-padding">
-            <CommunitySection />
+          <section className="py-8 sm:py-12 lg:py-16">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+              <CommunitySection />
+            </div>
           </section>
           
           {/* Open Source Section */}
-          <section className="mobile-padding">
-            <OpenSourceSection />
+          <section className="py-8 sm:py-12 lg:py-16 bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-950/20 dark:to-blue-950/20">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+              <OpenSourceSection />
+            </div>
           </section>
           
           {/* How It Works */}
-          <section className="mobile-padding">
-            <HowItWorks />
+          <section className="py-8 sm:py-12 lg:py-16">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+              <HowItWorks />
+            </div>
           </section>
           
           {/* Call to Action */}
-          <section className="mobile-padding">
-            <CallToActionSection />
+          <section className="py-8 sm:py-12 lg:py-16 bg-primary/10">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+              <CallToActionSection />
+            </div>
           </section>
           
           {/* FAQ Section */}
-          <section className="mobile-padding">
-            <FAQ />
+          <section className="py-8 sm:py-12 lg:py-16 pb-16">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+              <FAQ />
+            </div>
           </section>
         </main>
         <Footer />
