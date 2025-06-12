@@ -30,69 +30,105 @@ const Index = () => {
     <ErrorBoundary>
       <SEOHead />
       <AccessibilityHelper />
-      <div className="min-h-screen flex flex-col bg-background">
+      <div className="min-h-screen flex flex-col bg-background overflow-x-hidden">
         <Navbar />
         <main id="main-content" className="flex-grow">
-          <div className="container mx-auto px-4">
+          <div className="container mx-auto mobile-container">
             <BreadcrumbNav />
           </div>
           
           {/* Enhanced Hero Section */}
-          <EnhancedHero />
+          <section className="mobile-padding">
+            <EnhancedHero />
+          </section>
           
           {/* Trust Badges */}
-          <TrustBadges />
+          <section className="mobile-padding">
+            <TrustBadges />
+          </section>
           
           {/* Live Statistics Counter */}
-          <LiveStatsCounter />
+          <section className="mobile-padding">
+            <LiveStatsCounter />
+          </section>
           
           {/* Interactive Showcase */}
-          <InteractiveShowcase />
+          <section className="mobile-padding">
+            <InteractiveShowcase />
+          </section>
           
           {/* Stats Section */}
-          <StatsSection />
+          <section className="mobile-padding">
+            <StatsSection />
+          </section>
           
           {/* Interactive Demo Section */}
-          <InteractiveDemoSection />
+          <section className="mobile-padding">
+            <InteractiveDemoSection />
+          </section>
           
           {/* Main Feature Categories */}
-          <FeatureCategories />
+          <section className="mobile-padding">
+            <FeatureCategories />
+          </section>
           
           {/* Complete Feature List */}
-          <FeatureList />
+          <section className="mobile-padding">
+            <FeatureList />
+          </section>
           
           {/* Technology Showcase */}
-          <TechStackShowcase />
+          <section className="mobile-padding">
+            <TechStackShowcase />
+          </section>
           
           {/* All Features Section with Drag and Drop */}
-          <AllFeaturesSection />
+          <section className="mobile-padding">
+            <AllFeaturesSection />
+          </section>
           
-          {/* Why Choose Us Section (replaces pricing) */}
-          <WhyChooseUsSection />
+          {/* Why Choose Us Section */}
+          <section className="mobile-padding">
+            <WhyChooseUsSection />
+          </section>
           
           {/* Testimonials Section */}
-          <TestimonialsSection />
+          <section className="mobile-padding">
+            <TestimonialsSection />
+          </section>
           
           {/* Community Section */}
-          <CommunitySection />
+          <section className="mobile-padding">
+            <CommunitySection />
+          </section>
           
           {/* Open Source Section */}
-          <OpenSourceSection />
+          <section className="mobile-padding">
+            <OpenSourceSection />
+          </section>
           
           {/* How It Works */}
-          <HowItWorks />
+          <section className="mobile-padding">
+            <HowItWorks />
+          </section>
           
           {/* Call to Action */}
-          <CallToActionSection />
+          <section className="mobile-padding">
+            <CallToActionSection />
+          </section>
           
           {/* FAQ Section */}
-          <FAQ />
+          <section className="mobile-padding">
+            <FAQ />
+          </section>
         </main>
         <Footer />
         
-        {/* Phase 4 Components */}
-        <FloatingActionButton />
-        <PWAInstallPrompt />
+        {/* Mobile-optimized floating components */}
+        <div className="no-print">
+          <FloatingActionButton />
+          <PWAInstallPrompt />
+        </div>
       </div>
     </ErrorBoundary>
   );
